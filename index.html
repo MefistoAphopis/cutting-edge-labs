@@ -11,7 +11,7 @@
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia – tło, fonty oraz customowy kursor */
+      /* Globalne ustawienia – tło, fonty, customowy kursor i animacje odsłaniania sekcji */
       body {
         margin: 0;
         padding: 0;
@@ -24,10 +24,10 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Customowy kursor – plik custom-cursor.png musi być dostępny */
-        cursor: url('custom-cursor.png'), auto;
+        /* Użycie customowego kursora – plik custom-cursor.svg musi być w tym samym folderze */
+        cursor: url('custom-cursor.svg'), auto;
       }
-
+      
       /* Nagłówek – wycentrowany tytuł */
       .header-container {
         position: fixed;
@@ -64,7 +64,7 @@
         max-width: 800px;
         margin: 0 auto 20px;
       }
-      /* Ikonki w hero */
+      /* Ikonki w sekcji Hero */
       .hero-icons {
         margin-top: 30px;
       }
@@ -78,7 +78,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk rejestracji – zmodyfikowany font na Roboto */
+      /* Przycisk rejestracji dla użytkowników – z użyciem czcionki Roboto */
       .btn-register {
         margin-top: 20px;
         padding: 10px 20px;
@@ -95,7 +95,7 @@
         background-color: #00e6b8;
       }
 
-      /* Animacja odsłaniania sekcji */
+      /* Animacja odsłaniania sekcji – domyślnie przezroczyste i przesunięte w dół */
       section {
         opacity: 0;
         transform: translateY(20px);
@@ -104,6 +104,7 @@
         max-width: 1200px;
         margin: auto;
       }
+      /* Klasa visible – sekcja staje się widoczna */
       section.visible {
         opacity: 1;
         transform: translateY(0);
@@ -120,7 +121,7 @@
         border-top: 1px solid #333;
       }
       
-      /* Stylizacja modal oraz panelu admina – bez zmian */
+      /* Stylizacja modal oraz panelu admina */
       .modal {
         display: none; /* domyślnie ukryty */
         position: fixed;
@@ -204,7 +205,7 @@
         opacity: 1;
       }
       
-      /* Responsive */
+      /* Responsive: modyfikacja rozmiarów nagłówka i tytułu sekcji na mniejszych ekranach */
       @media(max-width: 768px) {
         .header-container h1 {
           font-size: 24px;
@@ -331,7 +332,7 @@
         }
       });
 
-      // Prosty przykład weryfikacji klucza admina – dla demonstracji (walidacja po stronie klienta, niewystarczająca dla produkcji)
+      // Prosty przykład weryfikacji klucza admina (walidacja po stronie klienta, niewystarczająca dla produkcji)
       document.getElementById('adminForm').addEventListener('submit', function(e) {
         const key = this.adminKey.value;
         const validKey = "TajnyKlucz123"; // Ustaw swój tajny klucz
@@ -359,7 +360,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Opcjonalnie, jeśli sekcja ma być animowana tylko raz, odłącz obserwatora:
+            // Jeśli sekcje mają być animowane tylko raz, można odłączyć obserwatora
             observer.unobserve(entry.target);
           }
         });

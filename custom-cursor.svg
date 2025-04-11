@@ -1,0 +1,9 @@
+xml version=1.0 encoding=UTF-8
+svg width=32 height=32 viewBox=0 0 32 32 xmlns=httpwww.w3.org2000svg
+  !-- Tło kursora przezroczyste --
+  rect width=32 height=32 fill=none
+  !-- Futurystyczny, prosty kształt kursora w neonowym kolorze (#00ffcc) --
+  polygon points=4,2 30,16 4,30 fill=#00ffcc stroke=#00ffcc stroke-width=1 
+  !-- Drobne detale; opcjonalnie można dodać cienie lub efekty gradientu --
+  polygon points=4,2 18,16 4,30 fill=rgba(0,0,0,0.2) 
+svg

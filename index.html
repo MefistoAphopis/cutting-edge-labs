@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>Cutting Edge Labs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Import czcionki Orbitron -->
+    <!-- Import czcionki Orbitron dla tytułów i ogólnego stylu -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Import czcionki Roboto, użytej na przycisku rejestracji -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -74,7 +76,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk rejestracji użytkownika */
+      /* Przycisk rejestracji dla użytkowników - zmodyfikowany font */
       .btn-register {
         margin-top: 20px;
         padding: 10px 20px;
@@ -84,6 +86,8 @@
         font-size: 18px;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        font-family: 'Roboto', sans-serif;
+        color: #000;
       }
       .btn-register:hover {
         background-color: #00e6b8;
@@ -274,7 +278,6 @@
         <form id="adminForm" action="#" method="post">
           <input type="email" name="adminEmail" placeholder="Twój email" required>
           <input type="password" name="adminKey" placeholder="Klucz dostępu" required>
-          <!-- Możesz dodać dodatkowe pola specyficzne dla panelu admina -->
           <input type="submit" value="Zarejestruj się jako Admin">
         </form>
       </div>
@@ -327,13 +330,12 @@
           e.preventDefault();
           alert("Błędny klucz dostępu!");
         }
-        // Przy poprawnym kluczu formularz zostanie wysłany (należy dodać backend do przetworzenia)
       });
 
       // Przykład obsługi formularza rejestracji użytkownika
       document.getElementById('registrationForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        alert("Dziękujemy za rejestrację!");
+        alert("Dziękujemy za rejestrację, skontaktujemy się z Tobą w ciągu 3 dni!");
         // Tutaj dodaj kod do wysyłki danych (np. za pomocą fetch lub XMLHttpRequest) do backendu
         registrationModal.style.display = 'none';
       });

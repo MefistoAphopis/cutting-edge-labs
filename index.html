@@ -11,7 +11,7 @@
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia z tłem – najpierw gradient, potem obraz */
+      /* Globalne ustawienia – tło, fonty oraz customowy kursor */
       body {
         margin: 0;
         padding: 0;
@@ -24,8 +24,10 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
+        /* Customowy kursor – plik custom-cursor.png musi być dostępny */
+        cursor: url('custom-cursor.png'), auto;
       }
-      
+
       /* Nagłówek – wycentrowany tytuł */
       .header-container {
         position: fixed;
@@ -76,7 +78,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk rejestracji dla użytkowników - zmodyfikowany font */
+      /* Przycisk rejestracji – zmodyfikowany font na Roboto */
       .btn-register {
         margin-top: 20px;
         padding: 10px 20px;
@@ -93,11 +95,18 @@
         background-color: #00e6b8;
       }
 
-      /* Sekcje informacyjne */
+      /* Animacja odsłaniania sekcji */
       section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
         padding: 60px 20px;
         max-width: 1200px;
         margin: auto;
+      }
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
       section h2 {
         margin-bottom: 20px;
@@ -111,7 +120,7 @@
         border-top: 1px solid #333;
       }
       
-      /* Modal – stylizacja podstawowa */
+      /* Stylizacja modal oraz panelu admina – bez zmian */
       .modal {
         display: none; /* domyślnie ukryty */
         position: fixed;
@@ -286,7 +295,7 @@
     <!-- Dyskretny przycisk otwierający panel admina -->
     <button class="admin-button" id="openAdminBtn">Panel Admina</button>
     
-    <!-- Skrypt do obsługi modali -->
+    <!-- Skrypt do obsługi modali oraz animacji odsłaniania sekcji -->
     <script>
       // Modal rejestracji użytkownika
       const registrationModal = document.getElementById('registrationModal');
@@ -322,7 +331,7 @@
         }
       });
 
-      // Prosty przykład weryfikacji klucza admina (dla demonstracji – pamiętaj, że klient-side validation nie zapewnia bezpieczeństwa)
+      // Prosty przykład weryfikacji klucza admina – dla demonstracji (walidacja po stronie klienta, niewystarczająca dla produkcji)
       document.getElementById('adminForm').addEventListener('submit', function(e) {
         const key = this.adminKey.value;
         const validKey = "TajnyKlucz123"; // Ustaw swój tajny klucz
@@ -336,8 +345,28 @@
       document.getElementById('registrationForm').addEventListener('submit', function(e) {
         e.preventDefault();
         alert("Dziękujemy za rejestrację, skontaktujemy się z Tobą w ciągu 3 dni!");
-        // Tutaj dodaj kod do wysyłki danych (np. za pomocą fetch lub XMLHttpRequest) do backendu
+        // Tutaj dodaj kod do wysyłki danych do backendu (np. fetch, XMLHttpRequest)
         registrationModal.style.display = 'none';
+      });
+
+      // Animacja odsłaniania sekcji przy przewijaniu
+      const sections = document.querySelectorAll('section');
+      const observerOptions = {
+        threshold: 0.2
+      };
+
+      const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Opcjonalnie, jeśli sekcja ma być animowana tylko raz, odłącz obserwatora:
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => {
+        sectionObserver.observe(section);
       });
     </script>
   </body>

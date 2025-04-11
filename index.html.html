@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <title>Cutting Edge Labs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import czcionki Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      /* Globalne ustawienia z tłem – najpierw gradient, potem obraz */
+      body {
+        margin: 0;
+        padding: 0;
+        background: 
+          linear-gradient(135deg, rgba(0,0,0,0.7), rgba(26,26,26,0.7)),
+          url('cutting_edge_labs_bg.webp') no-repeat center center;
+        background-size: cover;
+        font-family: 'Orbitron', sans-serif;
+        color: #e0e0e0;
+        line-height: 1.6;
+        font-size: 16px;
+        overflow-x: hidden;
+      }
+      
+      /* Nagłówek – bez przycisków nawigacji */
+      .header-container {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        text-align: center;
+        z-index: 1000;
+        border-bottom: 1px solid #333;
+      }
+      .header-container h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 2px;
+      }
+      
+      /* Sekcja Hero */
+      .hero {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-top: 120px; /* uwzględniamy wysokość nagłówka */
+      }
+      .hero h2 {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+      .hero p {
+        font-size: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      /* Kontener na ikony */
+      .hero-icons {
+        margin-top: 30px;
+      }
+      .hero-icon {
+        font-size: 48px;
+        margin: 0 15px;
+        color: #e0e0e0;
+        transition: color 0.3s ease;
+        text-decoration: none;
+      }
+      .hero-icon:hover {
+        color: #00ffcc;
+      }
+      
+      /* Sekcje informacyjne */
+      section {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+      section h2 {
+        margin-bottom: 20px;
+      }
+      
+      /* Stopka */
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.9);
+        border-top: 1px solid #333;
+      }
+      
+      /* Responsive */
+      @media(max-width: 768px) {
+        .header-container h1 {
+          font-size: 24px;
+        }
+        .hero h2 {
+          font-size: 36px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Nagłówek z wycentrowanym tytułem -->
+    <header class="header-container">
+      <h1>Cutting Edge Labs</h1>
+    </header>
+    
+    <!-- Sekcja Hero z centralnie wyświetlonymi ikonkami Discorda i YouTube -->
+    <div class="hero">
+      <div>
+        <h2>Przyszłość jest już tutaj</h2>
+        <p>Polska korporacja Cutting Edge Labs operuje w nullsecu, wykorzystując innowacyjne techniki gry w EVE Online, redefiniując granice możliwości.</p>
+        <div class="hero-icons">
+          <a href="https://discord.gg/HkvgVwbfy8" target="_blank" class="hero-icon">
+            <i class="fab fa-discord"></i>
+          </a>
+          <a href="https://www.youtube.com/@Mefi_sto" target="_blank" class="hero-icon">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sekcja "O Nas" -->
+    <section id="o-nas">
+      <h2>O Nas</h2>
+      <p>W Cutting Edge Labs skupiamy się na rozwijaniu zaawansowanych metod i technologii, które podnoszą poprzeczkę w świecie EVE Online. Nasza korporacja, działająca w sercu nullsec, jest źródłem innowacji i determinacji, gwarantując naszym partnerom przewagę strategiczną.</p>
+    </section>
+    
+    <!-- Sekcja "Nasze Technologie" -->
+    <section id="technologie">
+      <h2>Nasze Technologie</h2>
+      <p>Stosujemy nowoczesne metody, które łączą tradycyjne strategie z futurystycznymi technologiami, umożliwiając dynamiczny rozwój oraz przełomowe rozwiązania w każdej kampanii. Nasze rozwiązania są dedykowane graczom i korporacjom, które chcą osiągać więcej.</p>
+    </section>
+    
+    <!-- Sekcja Kontakt -->
+    <section id="kontakt">
+      <h2>Kontakt</h2>
+      <p>Skontaktuj się z nami, aby dowiedzieć się więcej o naszych usługach oraz możliwościach współpracy:</p>
+      <p>Email: kontakt@cuttingedgelabs.pl</p>
+      <p>Telefon: +48 123 456 789</p>
+      <p>Dołącz do naszej społeczności na Discord: <a href="https://discord.gg/HkvgVwbfy8" target="_blank">Kliknij tutaj</a></p>
+    </section>
+    
+    <!-- Stopka -->
+    <footer class="footer">
+      <p>&copy; 2025 Cutting Edge Labs. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+  </body>
+</html>

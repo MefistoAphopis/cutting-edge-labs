@@ -24,8 +24,9 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Użycie customowego kursora – plik custom-cursor.svg musi być w tym samym folderze */
-        cursor: url('custom-cursor.svg'), auto;
+        /* Używamy niestandardowego kursora w formacie PNG.
+           Hotspot ustawiony na 16,16. */
+        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABL0lEQVR42p1TV0jDUBT9LRFiAlIgLCBe4KCE7EtJBl4g7OPI7iElT0qBgPiJQPGCHUAghW0I1GVi3ZiTdMIfg68F6Psdzf3uzPk22XPRCK1I+my2Z9Wq/tHACBDvRuN3tyIgNvfvtm6w4j+H+9hsQCENRV4SF80aBJ0NnwHfTQkrOHC/ACWNu5vuJeOtK9FLAVuEH3u6l/YSybVgDYgQ8wAu5UeZ7SaMqq46VhUg6rTNxjgAkLTIMcBECFsxHkO0IiTrz8o6iZyapsI1iizq9UJ6pyecRnuAX8K8PPelxKJxOVNtPe1V1Mz4+QdSxM0+Y1GNJhTybzMdBCAiHVMLRXbPZ9rgiLSSqmp0QACsnMEeIFKBfMGhnAew8e7utjdI0N76jBiT4BgK7GUukO9xB+KkxEIlE0QnEzPI5DEauQp93rUcwac12qk4ZBH6VzyVn6gBjTcFFsxS5VAAAAAElFTkSuQmCC') 16 16, auto;
       }
       
       /* Nagłówek – wycentrowany tytuł */
@@ -360,7 +361,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Jeśli sekcje mają być animowane tylko raz, można odłączyć obserwatora
+            // Jeśli sekcje mają być animowane tylko raz, można odłączyć obserwatora:
             observer.unobserve(entry.target);
           }
         });

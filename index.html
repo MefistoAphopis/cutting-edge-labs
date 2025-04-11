@@ -24,7 +24,7 @@
         overflow-x: hidden;
       }
       
-      /* Nagłówek – bez przycisków nawigacji */
+      /* Nagłówek – wycentrowany tytuł */
       .header-container {
         position: fixed;
         top: 0;
@@ -45,6 +45,7 @@
       .hero {
         height: 100vh;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -57,9 +58,9 @@
       .hero p {
         font-size: 20px;
         max-width: 800px;
-        margin: 0 auto;
+        margin: 0 auto 20px;
       }
-      /* Kontener na ikony */
+      /* Ikonki w hero */
       .hero-icons {
         margin-top: 30px;
       }
@@ -73,7 +74,21 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      
+      /* Przycisk rejestracji użytkownika */
+      .btn-register {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #00ffcc;
+        border: none;
+        border-radius: 4px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .btn-register:hover {
+        background-color: #00e6b8;
+      }
+
       /* Sekcje informacyjne */
       section {
         padding: 60px 20px;
@@ -90,6 +105,90 @@
         padding: 20px;
         background: rgba(0, 0, 0, 0.9);
         border-top: 1px solid #333;
+      }
+      
+      /* Modal – stylizacja podstawowa */
+      .modal {
+        display: none; /* domyślnie ukryty */
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.8);
+      }
+      .modal-content {
+        background: #111;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #444;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 8px;
+        color: #e0e0e0;
+        position: relative;
+      }
+      .modal-content h3 {
+        margin-top: 0;
+      }
+      .close {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .close:hover {
+        color: #fff;
+      }
+      .modal form {
+        display: flex;
+        flex-direction: column;
+      }
+      .modal form input[type="text"],
+      .modal form input[type="email"],
+      .modal form input[type="password"] {
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+      .modal form input[type="submit"] {
+        padding: 10px;
+        background-color: #00ffcc;
+        border: none;
+        border-radius: 4px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .modal form input[type="submit"]:hover {
+        background-color: #00e6b8;
+      }
+      
+      /* Przycisk Panel Admina – dyskretny w dolnym prawym rogu */
+      .admin-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 8px 12px;
+        background-color: #444;
+        color: #e0e0e0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+        z-index: 2100;
+      }
+      .admin-button:hover {
+        opacity: 1;
       }
       
       /* Responsive */
@@ -109,7 +208,7 @@
       <h1>Cutting Edge Labs</h1>
     </header>
     
-    <!-- Sekcja Hero z centralnie wyświetlonymi ikonkami Discorda i YouTube -->
+    <!-- Sekcja Hero z ikonami i przyciskiem rejestracji -->
     <div class="hero">
       <div>
         <h2>Przyszłość jest już tutaj</h2>
@@ -122,6 +221,8 @@
             <i class="fab fa-youtube"></i>
           </a>
         </div>
+        <!-- Przycisk rejestracji dla użytkowników -->
+        <button class="btn-register" id="openRegisterBtn">Zarejestruj się</button>
       </div>
     </div>
     
@@ -150,5 +251,92 @@
     <footer class="footer">
       <p>&copy; 2025 Cutting Edge Labs. Wszelkie prawa zastrzeżone.</p>
     </footer>
+    
+    <!-- Modal rejestracji użytkownika -->
+    <div id="registrationModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeRegisterModal">&times;</span>
+        <h3>Rejestracja</h3>
+        <form id="registrationForm" action="#" method="post">
+          <input type="email" name="email" placeholder="Twój email" required>
+          <input type="text" name="discordId" placeholder="Discord ID" required>
+          <input type="text" name="eveNick" placeholder="Nick z EVE Online" required>
+          <input type="submit" value="Zarejestruj się">
+        </form>
+      </div>
+    </div>
+    
+    <!-- Modal panelu admina -->
+    <div id="adminModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeAdminModal">&times;</span>
+        <h3>Panel Admina - Rejestracja</h3>
+        <form id="adminForm" action="#" method="post">
+          <input type="email" name="adminEmail" placeholder="Twój email" required>
+          <input type="password" name="adminKey" placeholder="Klucz dostępu" required>
+          <!-- Możesz dodać dodatkowe pola specyficzne dla panelu admina -->
+          <input type="submit" value="Zarejestruj się jako Admin">
+        </form>
+      </div>
+    </div>
+    
+    <!-- Dyskretny przycisk otwierający panel admina -->
+    <button class="admin-button" id="openAdminBtn">Panel Admina</button>
+    
+    <!-- Skrypt do obsługi modali -->
+    <script>
+      // Modal rejestracji użytkownika
+      const registrationModal = document.getElementById('registrationModal');
+      const openRegisterBtn = document.getElementById('openRegisterBtn');
+      const closeRegisterModal = document.getElementById('closeRegisterModal');
+
+      openRegisterBtn.addEventListener('click', () => {
+        registrationModal.style.display = 'block';
+      });
+      closeRegisterModal.addEventListener('click', () => {
+        registrationModal.style.display = 'none';
+      });
+
+      // Modal panelu admina
+      const adminModal = document.getElementById('adminModal');
+      const openAdminBtn = document.getElementById('openAdminBtn');
+      const closeAdminModal = document.getElementById('closeAdminModal');
+
+      openAdminBtn.addEventListener('click', () => {
+        adminModal.style.display = 'block';
+      });
+      closeAdminModal.addEventListener('click', () => {
+        adminModal.style.display = 'none';
+      });
+
+      // Zamknięcie modali po kliknięciu poza oknem modalnym
+      window.addEventListener('click', (event) => {
+        if (event.target === registrationModal) {
+          registrationModal.style.display = 'none';
+        }
+        if (event.target === adminModal) {
+          adminModal.style.display = 'none';
+        }
+      });
+
+      // Prosty przykład weryfikacji klucza admina (dla demonstracji – pamiętaj, że klient-side validation nie zapewnia bezpieczeństwa)
+      document.getElementById('adminForm').addEventListener('submit', function(e) {
+        const key = this.adminKey.value;
+        const validKey = "TajnyKlucz123"; // Ustaw swój tajny klucz
+        if (key !== validKey) {
+          e.preventDefault();
+          alert("Błędny klucz dostępu!");
+        }
+        // Przy poprawnym kluczu formularz zostanie wysłany (należy dodać backend do przetworzenia)
+      });
+
+      // Przykład obsługi formularza rejestracji użytkownika
+      document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert("Dziękujemy za rejestrację!");
+        // Tutaj dodaj kod do wysyłki danych (np. za pomocą fetch lub XMLHttpRequest) do backendu
+        registrationModal.style.display = 'none';
+      });
+    </script>
   </body>
 </html>

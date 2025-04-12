@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Import czcionki Orbitron dla tytułów -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto, użytej w panelu i przyciskach -->
+    <!-- Import czcionki Roboto użytej w panelu i przyciskach -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+      /* Smooth scrolling dla wszystkich linków */
       html {
         scroll-behavior: smooth;
       }
+      
       /* ===== Globalne ustawienia ===== */
       body {
         margin: 0;
@@ -27,8 +29,11 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
+        /* Niestandardowy kursor – przykład PNG Data URI (32×32, hotspot: 16,16) */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
+      
+      /* ===== Pasek nagłówka ===== */
       .header-container {
         position: fixed;
         top: 0;
@@ -45,47 +50,6 @@
         letter-spacing: 2px;
       }
       
-      /* ===== Responsive Navbar – wysuwany pasek po prawej ===== */
-      #sideNav {
-        position: fixed;
-        top: 50%;
-        /* Domyślnie pasek wysuwa się z prawej, ale pozostaje częściowo widoczny */
-        right: -120px;
-        transform: translateY(-50%);
-        width: 120px;
-        background: rgba(0,0,0,0.8);
-        border-radius: 10px 0 0 10px;
-        box-shadow: -4px 4px 8px rgba(0,0,0,0.5);
-        transition: right 0.3s ease;
-        z-index: 1200;
-      }
-      #sideNav:hover {
-        right: 0;
-      }
-      #sideNav .nav-item {
-        display: flex;
-        align-items: center;
-        padding: 12px 8px;
-        text-decoration: none;
-        color: #e0e0e0;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        transition: background 0.3s ease;
-      }
-      #sideNav .nav-item:last-child {
-        border-bottom: none;
-      }
-      #sideNav .nav-item i {
-        margin-right: 8px;
-        font-size: 20px;
-      }
-      #sideNav .nav-item span {
-        font-size: 16px;
-        font-family: 'Roboto', sans-serif;
-      }
-      #sideNav .nav-item:hover {
-        background: rgba(0,0,0,0.6);
-      }
-      
       /* ===== Sekcja Hero ===== */
       .hero {
         height: 100vh;
@@ -94,7 +58,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding-top: 120px;
+        padding-top: 120px; /* Uwzględnia pasek nagłówka */
       }
       .hero h2 {
         font-size: 48px;
@@ -139,7 +103,7 @@
       #loggedInPanel {
         display: none;
         margin: 20px auto;
-        background: rgba(0,0,0,0.85);
+        background: rgba(0, 0, 0, 0.85);
         padding: 30px;
         border-radius: 10px;
         width: 90%;
@@ -197,17 +161,20 @@
         font-size: 28px;
       }
       .cards-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        display: flex;
+        flex-wrap: nowrap;
         gap: 20px;
+        overflow-x: auto;
+        justify-content: center;
+        /* Zapewniamy, że karty pozostaną w jednym rzędzie */
       }
       .card {
+        flex: 0 0 300px; /* Ustalona szerokość kart */
+        height: 300px;    /* Kwadratowy kształt */
         border: 2px solid #00ffcc;
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         overflow: hidden;
-        /* Proporcje kwadratowe przy minimalnej szerokości 250px */
-        aspect-ratio: 1 / 1;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.5);
       }
       .card iframe {
         width: 100%;
@@ -266,35 +233,63 @@
       
       /* ===== Responsywność ===== */
       @media(max-width: 768px) {
-        .header-container h1 { font-size: 24px; }
-        .hero h2 { font-size: 36px; }
-        .hero p { font-size: 18px; padding: 0 10px; }
-        .btn-eve { font-size: 16px; padding: 10px 20px; }
-        #loggedInPanel, #usefulLinksContainer { max-width: 90%; padding: 20px; }
-        .cards-container { gap: 15px; }
-        #o-nas p, #kontakt p { font-size: 16px; }
-        /* Ukrywamy pasek nawigacyjny po prawej dla mniejszych ekranów */
-        #sideNav { display: none; }
+        .header-container h1 {
+          font-size: 24px;
+        }
+        .hero h2 {
+          font-size: 36px;
+        }
+        .hero p {
+          font-size: 18px;
+          padding: 0 10px;
+        }
+        .btn-eve {
+          font-size: 16px;
+          padding: 10px 20px;
+        }
+        #loggedInPanel, #usefulLinksContainer {
+          max-width: 90%;
+          padding: 20px;
+        }
+        .cards-container {
+          gap: 15px;
+        }
+        #o-nas p, #kontakt p {
+          font-size: 16px;
+        }
       }
       @media(max-width: 480px) {
-        .header-container h1 { font-size: 20px; }
-        .hero h2 { font-size: 30px; }
-        .hero p { font-size: 16px; }
-        .hero-icon { font-size: 36px; margin: 0 10px; }
-        .btn-eve { font-size: 14px; padding: 8px 16px; }
-        #loggedInPanel, #usefulLinksContainer { padding: 15px; }
-        #usefulLinksContainer h2 { font-size: 20px; }
+        .header-container h1 {
+          font-size: 20px;
+        }
+        .hero h2 {
+          font-size: 30px;
+        }
+        .hero p {
+          font-size: 16px;
+        }
+        .hero-icon {
+          font-size: 36px;
+          margin: 0 10px;
+        }
+        .btn-eve {
+          font-size: 14px;
+          padding: 8px 16px;
+        }
+        #loggedInPanel, #usefulLinksContainer {
+          padding: 15px;
+        }
+        #usefulLinksContainer h2 {
+          font-size: 20px;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- ===== Pasek nawigacyjny po prawej stronie ===== -->
-    <div id="sideNav">
-      <a href="#hero" class="nav-item"><i class="fa fa-home"></i><span>Home</span></a>
-      <a href="#o-nas" class="nav-item"><i class="fa fa-info-circle"></i><span>O Nas</span></a>
-      <a href="#kontakt" class="nav-item"><i class="fa fa-phone"></i><span>Kontakt</span></a>
-      <a href="#usefulLinksContainer" class="nav-item"><i class="fa fa-link"></i><span>Links</span></a>
-    </div>
+    <!-- ===== Pasek nagłówka ===== -->
+    <header class="header-container">
+      <h1>Cutting Edge Labs</h1>
+    </header>
     
     <!-- ===== Sekcja Hero ===== -->
     <div id="hero" class="hero">
@@ -313,6 +308,7 @@
         </div>
         <!-- Przycisk logowania przez EVE -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
+        
         <!-- Panel kontaktowy (po zalogowaniu) -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
@@ -322,7 +318,8 @@
             <input type="submit" value="Wyślij">
           </form>
         </div>
-        <!-- Sekcja Useful Links -->
+        
+        <!-- Sekcja Useful Links – zawsze widoczna pod panelem kontaktowym -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
           <div class="cards-container">
@@ -379,21 +376,13 @@
     <button class="admin-button" id="adminBtn">Panel Admina</button>
     
     <script>
-      // ===== Responsive Navbar Toggle (mobile) =====
-      const mobileMenu = document.getElementById("mobile-menu");
-      const navMenu = document.querySelector(".nav-menu");
-      if (mobileMenu) {
-        mobileMenu.addEventListener("click", () => {
-          navMenu.classList.toggle("active");
-        });
-      }
-      
       // ===== KONFIGURACJA EVE SSO =====
       const clientId = "44257cb6866c45cdb044ab5704d3f9bc";
       const redirectUri = "https://mefistoaphopis.github.io/cutting-edge-labs/";
       const scope = "publicData";
       const state = "randomString123";
       const eveLoginBtn = document.getElementById("eveLoginBtn");
+      
       eveLoginBtn.addEventListener("click", () => {
         const url = "https://login.eveonline.com/v2/oauth/authorize"
           + "?response_type=code"

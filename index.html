@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Import czcionki Orbitron dla tytułów i ogólnego stylu -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto, użytej na przycisku oraz panelu -->
+    <!-- Import czcionki Roboto, użytej na przycisku -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia – tło, fonty, niestandardowy kursor (PNG) i animacje */
       body {
         margin: 0;
         padding: 0;
@@ -24,16 +23,15 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Używamy customowego kursora w formacie PNG (osadzonego jako Data URI) z hotspotem (16,16) */
+        /* Niestandardowy kursor – tutaj przykładowy futurystyczny PNG osadzony jako Data URI.
+           Hotspot (punkt aktywacji) ustawiony na 16,16 (środek obrazu 32x32). */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
-      
-      /* Nagłówek – wycentrowany tytuł */
       .header-container {
         position: fixed;
         top: 0;
         width: 100%;
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0,0,0,0.8);
         padding: 20px;
         text-align: center;
         z-index: 1000;
@@ -44,8 +42,6 @@
         font-size: 28px;
         letter-spacing: 2px;
       }
-      
-      /* Sekcja Hero */
       .hero {
         height: 100vh;
         display: flex;
@@ -53,7 +49,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding-top: 120px; /* uwzględniamy wysokość nagłówka */
+        padding-top: 120px;
       }
       .hero h2 {
         font-size: 48px;
@@ -77,7 +73,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk logowania przez EVE – zastępuje stary przycisk rejestracji */
+      /* Przycisk logowania przez EVE – pojawia się domyślnie */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -93,7 +89,43 @@
       .btn-eve:hover {
         background-color: #00e6b8;
       }
-      
+      /* Panel kontaktowy – ukryty domyślnie, pojawia się po zalogowaniu */
+      #loggedInPanel {
+        display: none;
+        margin-top: 20px;
+        background: rgba(0, 0, 0, 0.85);
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+      }
+      #loggedInPanel h3 {
+        margin-top: 0;
+        font-family: 'Roboto', sans-serif;
+        color: #00ffcc;
+      }
+      #loggedInPanel form input[type="text"],
+      #loggedInPanel form input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+      #loggedInPanel form input[type="text"] {
+        background: #222;
+        color: #e0e0e0;
+      }
+      #loggedInPanel form input[type="submit"] {
+        background-color: #00ffcc;
+        color: #000;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      #loggedInPanel form input[type="submit"]:hover {
+        background-color: #00e6b8;
+      }
       /* Animacja odsłaniania sekcji */
       section {
         opacity: 0;
@@ -107,54 +139,12 @@
         opacity: 1;
         transform: translateY(0);
       }
-      
-      /* Stopka */
       .footer {
         text-align: center;
         padding: 20px;
-        background: rgba(0, 0, 0, 0.9);
+        background: rgba(0,0,0,0.9);
         border-top: 1px solid #333;
       }
-      
-      /* Stylizacja panelu po zalogowaniu */
-      #postLoginPanel {
-        display: none; /* domyślnie ukryty */
-        background: rgba(17,17,17,0.9);
-        border: 1px solid #444;
-        padding: 20px;
-        border-radius: 8px;
-        max-width: 500px;
-        margin: 40px auto;
-        text-align: center;
-      }
-      #postLoginPanel h3 {
-        margin-top: 0;
-        font-family: 'Orbitron', sans-serif;
-      }
-      #postLoginPanel input[type="text"] {
-        width: 90%;
-        padding: 10px;
-        margin: 10px 0;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-      }
-      #postLoginPanel input[type="submit"] {
-        padding: 10px 20px;
-        background-color: #00ffcc;
-        border: none;
-        border-radius: 4px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        font-family: 'Roboto', sans-serif;
-        color: #000;
-      }
-      #postLoginPanel input[type="submit"]:hover {
-        background-color: #00e6b8;
-      }
-
-      /* Dyskretny przycisk Panel Admina */
       .admin-button {
         position: fixed;
         bottom: 20px;
@@ -173,7 +163,6 @@
       .admin-button:hover {
         opacity: 1;
       }
-      
       @media(max-width: 768px) {
         .header-container h1 {
           font-size: 24px;
@@ -205,20 +194,18 @@
             <i class="fab fa-youtube"></i>
           </a>
         </div>
-        <!-- PRZYCISK LOGOWANIA PRZEZ EVE -->
+        <!-- Przycisk logowania przez EVE (domyślnie widoczny) -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
+        <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
+        <div id="loggedInPanel">
+          <h3>Uzupełnij dane kontaktowe</h3>
+          <form id="contactForm">
+            <input type="text" name="discordNick" placeholder="Twój Discord Nick" required>
+            <input type="text" name="inGameNick" placeholder="Twój Nick w grze" required>
+            <input type="submit" value="Wyślij">
+          </form>
+        </div>
       </div>
-    </div>
-
-    <!-- Panel wyświetlany po zalogowaniu (po otrzymaniu parametru "code" w URL) -->
-    <div id="postLoginPanel">
-      <h3>Uzupełnij dane kontaktowe</h3>
-      <p>Podaj nick na Discordzie oraz nick w grze, abyśmy mogli się z Tobą skontaktować.</p>
-      <form id="contactDataForm" action="#" method="post">
-        <input type="text" name="contactDiscordNick" placeholder="Nick na Discordzie" required>
-        <input type="text" name="contactGameNick" placeholder="Nick w grze" required>
-        <input type="submit" value="Wyślij">
-      </form>
     </div>
 
     <!-- Sekcja "O Nas" -->
@@ -258,18 +245,18 @@
       <p>&copy; 2025 Cutting Edge Labs. Wszelkie prawa zastrzeżone.</p>
     </footer>
     
-    <!-- (Opcjonalnie) Przycisk Panelu Admina -->
+    <!-- Przycisk Panel Admina (opcjonalnie) -->
     <button class="admin-button" id="adminBtn">Panel Admina</button>
     
     <script>
       // ======= KONFIGURACJA EVE SSO =======
-      // Używamy Twoich danych. Pamiętaj, że Client Secret MUSI być przetwarzany po stronie serwera!
+      // Ustaw dane (Client Secret nie ujawniaj po stronie klienta!)
       const clientId = "44257cb6866c45cdb044ab5704d3f9bc";
       const redirectUri = "https://mefistoaphopis.github.io/cutting-edge-labs/";
       const scope = "publicData";
-      const state = "randomString123";  // Wartość losowa – możesz wygenerować dynamicznie
+      // Przykładowy parametr state – generujemy prosty ciąg; w produkcji powinien być losowy i trudny do odgadnięcia
+      const state = "randomString123";
 
-      // Obsługa przycisku "Zaloguj się przez EVE"
       const eveLoginBtn = document.getElementById("eveLoginBtn");
       eveLoginBtn.addEventListener("click", () => {
         const url = "https://login.eveonline.com/v2/oauth/authorize"
@@ -279,6 +266,24 @@
           + "&scope=" + encodeURIComponent(scope)
           + "&state=" + encodeURIComponent(state);
         window.location.href = url;
+      });
+
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy =======
+      // Jeśli URL zawiera parametr "code", traktujemy to jako efekt logowania przez EVE SSO
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("code")) {
+        // Ukrywamy przycisk logowania przez EVE
+        eveLoginBtn.style.display = "none";
+        // Pokazujemy panel kontaktowy
+        document.getElementById("loggedInPanel").style.display = "block";
+      }
+
+      // Obsługa formularza panelu kontaktowego
+      document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        alert("Dziękujemy za przesłanie danych! Skontaktujemy się z Tobą.");
+        // Tutaj możesz dodać kod do wysłania danych do backendu (np. fetch)
+        // Po wysłaniu, opcjonalnie możesz ukryć panel lub wyczyścić formularz
       });
 
       // ======= Animacja odsłaniania sekcji =======
@@ -293,26 +298,6 @@
         });
       }, observerOptions);
       sections.forEach(section => sectionObserver.observe(section));
-
-      // ======= Panel po zalogowaniu =======
-      // Jeśli w URL znajduje się parametr "code" (otrzymany z EVE SSO), wyświetlamy panel kontaktowy
-      window.addEventListener('load', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('code')) {
-          document.getElementById('postLoginPanel').style.display = 'block';
-        }
-      });
-
-      // Obsługa formularza w panelu po zalogowaniu
-      const contactForm = document.getElementById('contactDataForm');
-      contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Tutaj możesz dodać kod wysyłający dane do backendu,
-        // np. przy użyciu fetch lub XMLHttpRequest.
-        alert("Dziękujemy, dane zostały wysłane!");
-        // Po wysłaniu danych możesz opcjonalnie wyczyścić formularz:
-        this.reset();
-      });
 
       // ======= Panel Admina (opcjonalnie) =======
       const adminBtn = document.getElementById("adminBtn");

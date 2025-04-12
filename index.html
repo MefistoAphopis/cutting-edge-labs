@@ -194,3 +194,366 @@
         text-align: center;
         display: block;
       }
+      #usefulLinksContainer h2 {
+        margin-bottom: 20px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 28px;
+      }
+      .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        border: 2px solid #00ffcc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        overflow: hidden;
+        /* Ustalona proporcja dla kart, aby nie były zbyt wysokie */
+        aspect-ratio: 16 / 9;
+      }
+      .card iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      
+      /* ===== Sekcje "O Nas" i "Kontakt" ===== */
+      #o-nas, #kontakt {
+        text-align: center;
+        padding: 60px 20px;
+      }
+      #o-nas p, #kontakt p {
+        margin: 0 auto;
+        max-width: 800px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+      }
+      
+      /* ===== Animacja odsłaniania sekcji ===== */
+      section {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+      }
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .footer {
+        text-align: center;
+        padding: 20px;
+        background: rgba(0,0,0,0.9);
+        border-top: 1px solid #333;
+      }
+      .admin-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 8px 12px;
+        background-color: #444;
+        color: #e0e0e0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+        z-index: 2100;
+      }
+      .admin-button:hover {
+        opacity: 1;
+      }
+      
+      /* ===== Responsive Navbar ===== */
+      .navbar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+      }
+      .brand {
+        font-size: 28px;
+        letter-spacing: 2px;
+        color: #e0e0e0;
+        text-decoration: none;
+      }
+      .nav-menu {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+      .nav-item {
+        margin-left: 20px;
+      }
+      .nav-link {
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        color: #e0e0e0;
+        transition: color 0.3s ease;
+      }
+      .nav-link:hover {
+        color: #00ffcc;
+      }
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+      .nav-toggle .bar {
+        height: 3px;
+        width: 25px;
+        background-color: #e0e0e0;
+        margin: 4px 0;
+        transition: 0.4s;
+      }
+      
+      /* ===== Media Queries dla navbar ===== */
+      @media(max-width: 768px) {
+        .nav-menu {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          text-align: center;
+          background: rgba(0,0,0,0.9);
+        }
+        .nav-menu.active {
+          display: flex;
+        }
+        .nav-item {
+          margin: 10px 0;
+        }
+        .nav-toggle {
+          display: flex;
+        }
+      }
+      
+      /* ===== Responsywność ogólna ===== */
+      @media(max-width: 768px) {
+        .header-container h1 {
+          font-size: 24px;
+        }
+        .hero h2 {
+          font-size: 36px;
+        }
+        .hero p {
+          font-size: 18px;
+          padding: 0 10px;
+        }
+        .btn-eve {
+          font-size: 16px;
+          padding: 10px 20px;
+        }
+        #loggedInPanel, #usefulLinksContainer {
+          max-width: 90%;
+          padding: 20px;
+        }
+        #o-nas p, #kontakt p {
+          font-size: 16px;
+        }
+      }
+      @media(max-width: 480px) {
+        .header-container h1 {
+          font-size: 20px;
+        }
+        .hero h2 {
+          font-size: 30px;
+        }
+        .hero p {
+          font-size: 16px;
+        }
+        .hero-icon {
+          font-size: 36px;
+          margin: 0 10px;
+        }
+        .btn-eve {
+          font-size: 14px;
+          padding: 8px 16px;
+        }
+        #loggedInPanel, #usefulLinksContainer {
+          padding: 15px;
+        }
+        #usefulLinksContainer h2 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== Responsive Navbar ===== -->
+    <header class="header-container">
+      <div class="navbar-container">
+        <a href="#hero" class="brand">Cutting Edge Labs</a>
+        <div class="nav-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="#hero" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="#o-nas" class="nav-link">O Nas</a></li>
+          <li class="nav-item"><a href="#kontakt" class="nav-link">Kontakt</a></li>
+          <li class="nav-item"><a href="#usefulLinksContainer" class="nav-link">Useful Links</a></li>
+        </ul>
+      </div>
+    </header>
+    
+    <!-- ===== Sekcja Hero ===== -->
+    <div id="hero" class="hero">
+      <div>
+        <h2>Przyszłość jest już tutaj</h2>
+        <p>
+          Polska korporacja Cutting Edge Labs operuje w nullsecu, wykorzystując innowacyjne techniki gry w EVE Online, redefiniując granice możliwości.
+        </p>
+        <div class="hero-icons">
+          <a href="https://discord.gg/HkvgVwbfy8" target="_blank" class="hero-icon">
+            <i class="fab fa-discord"></i>
+          </a>
+          <a href="https://www.youtube.com/@Mefi_sto" target="_blank" class="hero-icon">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+        <!-- Przycisk logowania przez EVE -->
+        <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
+        
+        <!-- Panel kontaktowy (po zalogowaniu) -->
+        <div id="loggedInPanel">
+          <h3>Uzupełnij dane kontaktowe</h3>
+          <form id="contactForm">
+            <input type="text" name="discordNick" placeholder="Twój Discord Nick" required>
+            <input type="text" name="inGameNick" placeholder="Twój Nick w grze" required>
+            <input type="submit" value="Wyślij">
+          </form>
+        </div>
+        
+        <!-- Sekcja Useful Links -->
+        <div id="usefulLinksContainer">
+          <h2>Useful Links</h2>
+          <div class="cards-container">
+            <div class="card">
+              <iframe src="https://www.youtube.com/embed/CDV92opHDWc" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="card">
+              <iframe src="https://www.youtube.com/embed/BCSeISYcoyI" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="card">
+              <iframe src="https://www.youtube.com/embed/0bjTrPutt4k" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="card">
+              <iframe src="https://www.youtube.com/embed/cu5FHzfkMW8" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ===== Sekcja "O Nas" ===== -->
+    <section id="o-nas">
+      <h2>O Nas</h2>
+      <p>
+        Cutting Edge Labs to futurystyczna korporacja z EVE Online, gdzie innowacja spotyka się z nieograniczonym potencjałem kosmicznych możliwości.<br>
+        Przekraczamy granice, osiągamy to, co wydaje się niemożliwe, i prowadzimy naszych partnerów ku zwycięstwu.<br>
+        May the Force be with us.
+      </p>
+    </section>
+    
+    <!-- ===== Sekcja "Kontakt" ===== -->
+    <section id="kontakt">
+      <h2>Kontakt</h2>
+      <p>
+        Skontaktuj się z nami, by odkryć nowe horyzonty i stać się częścią kosmicznej rewolucji.<br>
+        Dołącz do naszej misji i pozwól, by każdy sojusz zmieniał przyszłość wszechświata.
+      </p>
+      <p>Email: kontakt@cuttingedgelabs.pl</p>
+      <p>Telefon: +48 123 456 789</p>
+      <p>
+        Dołącz do naszej społeczności na Discord:
+        <a href="https://discord.gg/HkvgVwbfy8" target="_blank">
+          <i class="fab fa-discord" style="color: #7289da; font-size: 32px;"></i>
+        </a>
+      </p>
+    </section>
+    
+    <!-- ===== Stopka ===== -->
+    <footer class="footer">
+      <p>&copy; 2025 Cutting Edge Labs. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+    
+    <!-- ===== Przycisk Panel Admina (opcjonalnie) ===== -->
+    <button class="admin-button" id="adminBtn">Panel Admina</button>
+    
+    <script>
+      // ======= Responsive Navbar Toggle =======
+      const mobileMenu = document.getElementById("mobile-menu");
+      const navMenu = document.querySelector(".nav-menu");
+      if (mobileMenu) {
+        mobileMenu.addEventListener("click", () => {
+          navMenu.classList.toggle("active");
+        });
+      }
+      
+      // ======= KONFIGURACJA EVE SSO =======
+      const clientId = "44257cb6866c45cdb044ab5704d3f9bc";
+      const redirectUri = "https://mefistoaphopis.github.io/cutting-edge-labs/";
+      const scope = "publicData";
+      const state = "randomString123";
+      const eveLoginBtn = document.getElementById("eveLoginBtn");
+      eveLoginBtn.addEventListener("click", () => {
+        const url = "https://login.eveonline.com/v2/oauth/authorize"
+          + "?response_type=code"
+          + "&redirect_uri=" + encodeURIComponent(redirectUri)
+          + "&client_id=" + clientId
+          + "&scope=" + encodeURIComponent(scope)
+          + "&state=" + encodeURIComponent(state);
+        window.location.href = url;
+      });
+      
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("code")) {
+        eveLoginBtn.style.display = "none";
+        document.getElementById("loggedInPanel").style.display = "block";
+        document.getElementById("usefulLinksContainer").style.display = "block";
+      }
+      
+      // ======= Obsługa formularza panelu kontaktowego =======
+      document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const panel = document.getElementById("loggedInPanel");
+        panel.innerHTML = `
+          <h3>Dziękujemy za rejestrację, skontaktujemy się z Tobą!</h3>
+          <p>A w tym czasie dołącz do naszego Discorda: 
+            <a href="https://discord.gg/HkvgVwbfy8" target="_blank">
+              <i class="fab fa-discord" style="color: #7289da; font-size: 32px;"></i>
+            </a>
+          </p>
+        `;
+      });
+      
+      // ======= Animacja odsłaniania sekcji =======
+      const sections = document.querySelectorAll("section");
+      const observerOptions = { threshold: 0.2 };
+      const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      sections.forEach(section => sectionObserver.observe(section));
+      
+      // ======= Panel Admina (opcjonalnie) =======
+      const adminBtn = document.getElementById("adminBtn");
+      adminBtn.addEventListener("click", () => {
+        alert("Tutaj może być logika panelu admina");
+      });
+    </script>
+  </body>
+</html>

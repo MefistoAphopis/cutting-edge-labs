@@ -11,7 +11,7 @@
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia – tło, fonty i animacje odsłaniania sekcji */
+      /* Globalne ustawienia – tło, fonty, customowy kursor i animacje odsłaniania sekcji */
       body {
         margin: 0;
         padding: 0;
@@ -24,9 +24,9 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Używamy pliku custom-cursor.png jako niestandardowego kursora
-           z punktem aktywnym (hotspot) ustawionym na (16,16). */
-        cursor: url('custom-cursor.png') 16 16, auto;
+        /* Używamy nowego kursora w formacie SVG osadzonego jako Data URI
+           Hotspot ustawiony na (16,16), czyli środek 32x32 pixelewgo obrazu. */
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2366ffff;stop-opacity:1'/><stop offset='100%' style='stop-color:%23ccffff;stop-opacity:1'/></linearGradient></defs><polygon points='6,2 30,16 6,30' fill='url(%23grad)' stroke='%2366ffff' stroke-width='2'/><polygon points='6,2 18,16 6,30' fill='rgba(255,255,255,0.2)'/></svg>") 16 16, auto;
       }
       
       /* Nagłówek – wycentrowany tytuł */

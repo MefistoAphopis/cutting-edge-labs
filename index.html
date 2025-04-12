@@ -72,7 +72,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przyciski logowania przez EVE */
+      /* Przycisk logowania przez EVE (domyślnie widoczny) */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -88,10 +88,10 @@
       .btn-eve:hover {
         background-color: #00e6b8;
       }
-      /* Wyśrodkowany panel kontaktowy – pojawia się po zalogowaniu */
+      /* Panel kontaktowy – ukryty domyślnie, wyśrodkowany */
       #loggedInPanel {
         display: none;
-        margin: 20px auto; /* Wyśrodkowanie: auto dla lewego i prawego marginesu */
+        margin: 20px auto;
         background: rgba(0, 0, 0, 0.85);
         padding: 30px;
         border-radius: 10px;
@@ -205,7 +205,7 @@
         </div>
         <!-- Przycisk logowania przez EVE (domyślnie widoczny) -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
-        <!-- Panel kontaktowy pojawiający się po zalogowaniu; wyśrodkowany przez margin: auto -->
+        <!-- Panel kontaktowy, wyświetlany po zalogowaniu (zastąpi przycisk) -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
           <form id="contactForm">
@@ -283,15 +283,20 @@
       if (urlParams.has("code")) {
         // Ukrywamy przycisk logowania przez EVE
         eveLoginBtn.style.display = "none";
-        // Pokazujemy panel kontaktowy (który jest wyśrodkowany przez margin: auto)
+        // Pokazujemy panel kontaktowy
         document.getElementById("loggedInPanel").style.display = "block";
       }
 
-      // Obsługa formularza panelu kontaktowego
+      // ======= Obsługa formularza panelu kontaktowego =======
       document.getElementById("contactForm").addEventListener("submit", function(e) {
         e.preventDefault();
-        alert("Dziękujemy za przesłanie danych! Skontaktujemy się z Tobą.");
-        // Tutaj możesz dodać kod do wysłania danych do backendu (np. fetch)
+        // Zmieniamy zawartość panelu na komunikat
+        const panel = document.getElementById("loggedInPanel");
+        panel.innerHTML = `
+          <h3>Dziękujemy za rejestrację, skontaktujemy się z Tobą!</h3>
+          <p>A w tym czasie dołącz do naszego Discorda: 
+          <a href="https://discord.gg/HkvgVwbfy8" target="_blank">Kliknij tutaj</a></p>
+        `;
       });
 
       // ======= Animacja odsłaniania sekcji =======

@@ -11,7 +11,6 @@
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia – tło, fonty, customowy kursor i animacje */
       body {
         margin: 0;
         padding: 0;
@@ -24,9 +23,9 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
+        /* Niestandardowy kursor – przykładowy PNG osadzony jako Data URI, hotspot ustawiony na 16,16 */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
-      
       .header-container {
         position: fixed;
         top: 0;
@@ -42,7 +41,6 @@
         font-size: 28px;
         letter-spacing: 2px;
       }
-      
       .hero {
         height: 100vh;
         display: flex;
@@ -74,8 +72,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      
-      /* Przycisk logowania przez EVE */
+      /* Przyciski logowania przez EVE */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -91,11 +88,10 @@
       .btn-eve:hover {
         background-color: #00e6b8;
       }
-      
-      /* Ulepszony panel kontaktowy, wyświetlany po zalogowaniu */
+      /* Wyśrodkowany panel kontaktowy – pojawia się po zalogowaniu */
       #loggedInPanel {
         display: none;
-        margin-top: 20px;
+        margin: 20px auto; /* Wyśrodkowanie: auto dla lewego i prawego marginesu */
         background: rgba(0, 0, 0, 0.85);
         padding: 30px;
         border-radius: 10px;
@@ -105,8 +101,8 @@
         border: 2px solid #00ffcc;
         animation: fadeIn 0.5s ease forwards;
         font-family: 'Roboto', sans-serif;
+        text-align: center;
       }
-      /* Kluczowe animacje */
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
@@ -139,7 +135,6 @@
       #loggedInPanel form input[type="submit"]:hover {
         background-color: #00e6b8;
       }
-      
       /* Animacja odsłaniania sekcji */
       section {
         opacity: 0;
@@ -153,7 +148,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-      
       .footer {
         text-align: center;
         padding: 20px;
@@ -211,7 +205,7 @@
         </div>
         <!-- Przycisk logowania przez EVE (domyślnie widoczny) -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
-        <!-- Panel kontaktowy (pokazuje się po zalogowaniu) -->
+        <!-- Panel kontaktowy pojawiający się po zalogowaniu; wyśrodkowany przez margin: auto -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
           <form id="contactForm">
@@ -289,7 +283,7 @@
       if (urlParams.has("code")) {
         // Ukrywamy przycisk logowania przez EVE
         eveLoginBtn.style.display = "none";
-        // Pokazujemy panel kontaktowy
+        // Pokazujemy panel kontaktowy (który jest wyśrodkowany przez margin: auto)
         document.getElementById("loggedInPanel").style.display = "block";
       }
 
@@ -297,7 +291,7 @@
       document.getElementById("contactForm").addEventListener("submit", function(e) {
         e.preventDefault();
         alert("Dziękujemy za przesłanie danych! Skontaktujemy się z Tobą.");
-        // Tutaj możesz dodać kod do wysyłki danych do backendu (np. fetch)
+        // Tutaj możesz dodać kod do wysłania danych do backendu (np. fetch)
       });
 
       // ======= Animacja odsłaniania sekcji =======

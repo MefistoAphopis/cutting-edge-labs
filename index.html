@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <title>Cutting Edge Labs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Smooth scrolling (CSS) -->
+    <!-- Import czcionki Orbitron dla tytułów -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Import czcionki Roboto użytej w panelu i przyciskach -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- Import Font Awesome dla ikonek -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       html {
         scroll-behavior: smooth;
       }
-    </style>
-    <!-- Import czcionki Orbitron dla tytułów -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto, użytej w panelu i przyciskach -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
       /* ===== Globalne ustawienia ===== */
       body {
         margin: 0;
@@ -30,63 +27,47 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – przykładowy PNG Data URI (32×32, hotspot: 16,16) */
+        /* Niestandardowy kursor – przykładowy PNG Data URI, hotspot: (16,16) dla obrazu 32×32 */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
-      /* ===== Responsive Navbar ===== */
-      .header-container {
+      /* ===== Pasek nawigacyjny po prawej stronie ===== */
+      #sideNav {
         position: fixed;
-        top: 0;
-        width: 100%;
+        top: 50%;
+        right: -180px; /* Ukryty poza ekranem */
+        transform: translateY(-50%);
+        width: 180px;
         background: rgba(0, 0, 0, 0.8);
-        border-bottom: 1px solid #333;
-        z-index: 1100;
+        border-radius: 10px 0 0 10px;
+        box-shadow: -4px 4px 8px rgba(0,0,0,0.5);
+        transition: right 0.3s ease;
+        z-index: 1200;
       }
-      .navbar-container {
-        max-width: 1200px;
-        margin: 0 auto;
+      #sideNav:hover {
+        right: 0; /* Pasek wysuwa się */
+      }
+      #sideNav .nav-item {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 10px 20px;
-      }
-      .brand {
-        font-size: 28px;
-        letter-spacing: 2px;
+        padding: 12px;
+        text-decoration: none;
         color: #e0e0e0;
-        text-decoration: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        transition: background 0.3s ease;
       }
-      .nav-menu {
-        list-style: none;
-        display: flex;
-        margin: 0;
-        padding: 0;
+      #sideNav .nav-item:last-child {
+        border-bottom: none;
       }
-      .nav-item {
-        margin-left: 20px;
+      #sideNav .nav-item i {
+        margin-right: 10px;
+        font-size: 20px;
       }
-      .nav-link {
-        text-decoration: none;
-        font-family: 'Roboto', sans-serif;
+      #sideNav .nav-item span {
         font-size: 18px;
-        color: #e0e0e0;
-        transition: color 0.3s ease;
+        font-family: 'Roboto', sans-serif;
       }
-      .nav-link:hover {
-        color: #00ffcc;
-      }
-      /* Mobile toggle button (hamburger) */
-      .nav-toggle {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-      }
-      .nav-toggle .bar {
-        height: 3px;
-        width: 25px;
-        background-color: #e0e0e0;
-        margin: 4px 0;
-        transition: 0.4s;
+      #sideNav .nav-item:hover {
+        background: rgba(0,0,0,0.6);
       }
       
       /* ===== Sekcja Hero ===== */
@@ -209,8 +190,8 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         overflow: hidden;
-        /* Ustalona proporcja dla kart, aby nie były zbyt wysokie */
-        aspect-ratio: 16 / 9;
+        /* Ustalona proporcja kwadratowa (np. 1:1) – na desktopie karty mają 250×250, ale elastycznie się skalują */
+        aspect-ratio: 1 / 1;
       }
       .card iframe {
         width: 100%;
@@ -267,142 +248,76 @@
         opacity: 1;
       }
       
-      /* ===== Responsive Navbar ===== */
-      .navbar-container {
-        max-width: 1200px;
-        margin: 0 auto;
+      /* ===== Responsive Navbar (po prawej stronie) ===== */
+      #sideNav {
+        position: fixed;
+        top: 50%;
+        right: -180px; /* Pasek ukryty poza ekranem */
+        transform: translateY(-50%);
+        width: 180px;
+        background: rgba(0,0,0,0.8);
+        border-radius: 10px 0 0 10px;
+        box-shadow: -4px 4px 8px rgba(0,0,0,0.5);
+        transition: right 0.3s ease;
+        z-index: 1200;
+      }
+      #sideNav:hover {
+        right: 0;
+      }
+      #sideNav .nav-item {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 10px 20px;
-      }
-      .brand {
-        font-size: 28px;
-        letter-spacing: 2px;
+        padding: 12px;
+        text-decoration: none;
         color: #e0e0e0;
-        text-decoration: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        transition: background 0.3s ease;
       }
-      .nav-menu {
-        list-style: none;
-        display: flex;
-        margin: 0;
-        padding: 0;
+      #sideNav .nav-item:last-child {
+        border-bottom: none;
       }
-      .nav-item {
-        margin-left: 20px;
+      #sideNav .nav-item i {
+        margin-right: 10px;
+        font-size: 20px;
       }
-      .nav-link {
-        text-decoration: none;
-        font-family: 'Roboto', sans-serif;
+      #sideNav .nav-item span {
         font-size: 18px;
-        color: #e0e0e0;
-        transition: color 0.3s ease;
+        font-family: 'Roboto', sans-serif;
       }
-      .nav-link:hover {
-        color: #00ffcc;
-      }
-      .nav-toggle {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-      }
-      .nav-toggle .bar {
-        height: 3px;
-        width: 25px;
-        background-color: #e0e0e0;
-        margin: 4px 0;
-        transition: 0.4s;
-      }
-      
-      /* ===== Media Queries dla navbar ===== */
-      @media(max-width: 768px) {
-        .nav-menu {
-          display: none;
-          flex-direction: column;
-          width: 100%;
-          text-align: center;
-          background: rgba(0,0,0,0.9);
-        }
-        .nav-menu.active {
-          display: flex;
-        }
-        .nav-item {
-          margin: 10px 0;
-        }
-        .nav-toggle {
-          display: flex;
-        }
+      #sideNav .nav-item:hover {
+        background: rgba(0,0,0,0.6);
       }
       
       /* ===== Responsywność ogólna ===== */
       @media(max-width: 768px) {
-        .header-container h1 {
-          font-size: 24px;
-        }
-        .hero h2 {
-          font-size: 36px;
-        }
-        .hero p {
-          font-size: 18px;
-          padding: 0 10px;
-        }
-        .btn-eve {
-          font-size: 16px;
-          padding: 10px 20px;
-        }
-        #loggedInPanel, #usefulLinksContainer {
-          max-width: 90%;
-          padding: 20px;
-        }
-        #o-nas p, #kontakt p {
-          font-size: 16px;
-        }
+        .header-container h1 { font-size: 24px; }
+        .hero h2 { font-size: 36px; }
+        .hero p { font-size: 18px; padding: 0 10px; }
+        .btn-eve { font-size: 16px; padding: 10px 20px; }
+        #loggedInPanel, #usefulLinksContainer { max-width: 90%; padding: 20px; }
+        #o-nas p, #kontakt p { font-size: 16px; }
+        /* Ukrywamy pasek nawigacyjny po prawej na mniejszych ekranach */
+        #sideNav { display: none; }
       }
       @media(max-width: 480px) {
-        .header-container h1 {
-          font-size: 20px;
-        }
-        .hero h2 {
-          font-size: 30px;
-        }
-        .hero p {
-          font-size: 16px;
-        }
-        .hero-icon {
-          font-size: 36px;
-          margin: 0 10px;
-        }
-        .btn-eve {
-          font-size: 14px;
-          padding: 8px 16px;
-        }
-        #loggedInPanel, #usefulLinksContainer {
-          padding: 15px;
-        }
-        #usefulLinksContainer h2 {
-          font-size: 20px;
-        }
+        .header-container h1 { font-size: 20px; }
+        .hero h2 { font-size: 30px; }
+        .hero p { font-size: 16px; }
+        .hero-icon { font-size: 36px; margin: 0 10px; }
+        .btn-eve { font-size: 14px; padding: 8px 16px; }
+        #loggedInPanel, #usefulLinksContainer { padding: 15px; }
+        #usefulLinksContainer h2 { font-size: 20px; }
       }
     </style>
   </head>
   <body>
-    <!-- ===== Responsive Navbar ===== -->
-    <header class="header-container">
-      <div class="navbar-container">
-        <a href="#hero" class="brand">Cutting Edge Labs</a>
-        <div class="nav-toggle" id="mobile-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-        <ul class="nav-menu">
-          <li class="nav-item"><a href="#hero" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="#o-nas" class="nav-link">O Nas</a></li>
-          <li class="nav-item"><a href="#kontakt" class="nav-link">Kontakt</a></li>
-          <li class="nav-item"><a href="#usefulLinksContainer" class="nav-link">Useful Links</a></li>
-        </ul>
-      </div>
-    </header>
+    <!-- ===== Pasek nawigacyjny po prawej stronie ===== -->
+    <div id="sideNav">
+      <a href="#hero" class="nav-item"><i class="fa fa-home"></i><span>Home</span></a>
+      <a href="#o-nas" class="nav-item"><i class="fa fa-info-circle"></i><span>O Nas</span></a>
+      <a href="#kontakt" class="nav-item"><i class="fa fa-phone"></i><span>Kontakt</span></a>
+      <a href="#usefulLinksContainer" class="nav-item"><i class="fa fa-link"></i><span>Links</span></a>
+    </div>
     
     <!-- ===== Sekcja Hero ===== -->
     <div id="hero" class="hero">
@@ -422,7 +337,7 @@
         <!-- Przycisk logowania przez EVE -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
         
-        <!-- Panel kontaktowy (po zalogowaniu) -->
+        <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
           <form id="contactForm">
@@ -489,7 +404,7 @@
     <button class="admin-button" id="adminBtn">Panel Admina</button>
     
     <script>
-      // ======= Responsive Navbar Toggle =======
+      // ======= Responsive Navbar Toggle (mobile) =======
       const mobileMenu = document.getElementById("mobile-menu");
       const navMenu = document.querySelector(".nav-menu");
       if (mobileMenu) {
@@ -504,6 +419,7 @@
       const scope = "publicData";
       const state = "randomString123";
       const eveLoginBtn = document.getElementById("eveLoginBtn");
+
       eveLoginBtn.addEventListener("click", () => {
         const url = "https://login.eveonline.com/v2/oauth/authorize"
           + "?response_type=code"
@@ -513,7 +429,7 @@
           + "&state=" + encodeURIComponent(state);
         window.location.href = url;
       });
-      
+
       // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
@@ -521,7 +437,7 @@
         document.getElementById("loggedInPanel").style.display = "block";
         document.getElementById("usefulLinksContainer").style.display = "block";
       }
-      
+
       // ======= Obsługa formularza panelu kontaktowego =======
       document.getElementById("contactForm").addEventListener("submit", function(e) {
         e.preventDefault();
@@ -535,7 +451,7 @@
           </p>
         `;
       });
-      
+
       // ======= Animacja odsłaniania sekcji =======
       const sections = document.querySelectorAll("section");
       const observerOptions = { threshold: 0.2 };
@@ -548,7 +464,7 @@
         });
       }, observerOptions);
       sections.forEach(section => sectionObserver.observe(section));
-      
+
       // ======= Panel Admina (opcjonalnie) =======
       const adminBtn = document.getElementById("adminBtn");
       adminBtn.addEventListener("click", () => {

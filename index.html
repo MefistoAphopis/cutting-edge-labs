@@ -404,3 +404,27 @@
               <i class="fab fa-discord" style="color: #7289da; font-size: 32px;"></i>
             </a>
           </p>
+        `;
+      });
+
+      // ======= Animacja odsłaniania sekcji =======
+      const sections = document.querySelectorAll("section");
+      const observerOptions = { threshold: 0.2 };
+      const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      sections.forEach(section => sectionObserver.observe(section));
+
+      // ======= Panel Admina (opcjonalnie) =======
+      const adminBtn = document.getElementById("adminBtn");
+      adminBtn.addEventListener("click", () => {
+        alert("Tutaj może być logika panelu admina");
+      });
+    </script>
+  </body>
+</html>

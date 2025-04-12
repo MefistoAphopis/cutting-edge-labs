@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Import czcionki Orbitron dla tytułów -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto użytej w panelu i przyciskach -->
+    <!-- Import czcionki Roboto, użytej w panelu i przyciskach -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,7 +24,7 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – przykładowy PNG osadzony jako Data URI, hotspot: (16,16) dla obrazu 32x32 */
+        /* Niestandardowy kursor – przykładowy PNG osadzony jako Data URI (hotspot: (16,16)) */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
       .header-container {
@@ -74,7 +74,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przyciski logowania przez EVE */
+      /* Przycisk logowania przez EVE (widoczny domyślnie) */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -137,7 +137,7 @@
       #loggedInPanel form input[type="submit"]:hover {
         background-color: #00e6b8;
       }
-      /* Nowa sekcja Useful Links – teraz wyświetlana zawsze pod panelem kontaktowym */
+      /* Sekcja Useful Links – zawsze wyświetlana, zaraz pod panelem kontaktowym */
       #usefulLinksContainer {
         margin: 20px auto;
         padding: 20px;
@@ -169,21 +169,17 @@
         height: 170px;
         display: block;
       }
-      /* Sekcje "O Nas" oraz "Kontakt" – dostosowane style inspirowane stylem Star Wars */
+      /* Sekcje "O Nas" i "Kontakt" – wyrównane do środka z tekstem inspirowanym stylistyką Star Wars */
+      #o-nas, #kontakt {
+        text-align: center; /* wyrównanie do środka */
+        padding: 60px 20px;
+      }
       #o-nas p, #kontakt p {
-        text-align: center;
-        font-family: 'Roboto', sans-serif;
-        font-size: 20px;
         margin: 0 auto;
         max-width: 800px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-      }
-      /* Przykładowy tekst, inspiracja Star Wars */
-      #o-nas {
-        padding: 60px 20px;
-      }
-      #kontakt {
-        padding: 60px 20px;
       }
       /* Animacja odsłaniania sekcji */
       section {
@@ -219,7 +215,7 @@
       .admin-button:hover {
         opacity: 1;
       }
-      /* RESPONSYWNOŚĆ */
+      /* Responsywność */
       @media(max-width: 768px) {
         .header-container h1 {
           font-size: 24px;
@@ -315,7 +311,7 @@
             <input type="submit" value="Wyślij">
           </form>
         </div>
-        <!-- Sekcja Useful Links pojawiająca się pod panelem kontaktowym -->
+        <!-- Sekcja Useful Links – zawsze widoczna pod panelem kontaktowym -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
           <div class="cards-container">
@@ -336,7 +332,7 @@
       </div>
     </div>
 
-    <!-- Sekcja "O Nas" z futurystycznym tekstem inspirowanym Star Wars -->
+    <!-- Sekcja "O Nas" – wyrównana do środka -->
     <section id="o-nas">
       <h2>O Nas</h2>
       <p>
@@ -346,16 +342,7 @@
       </p>
     </section>
 
-    <!-- Sekcja "Nasze Technologie" -->
-    <section id="technologie">
-      <h2>Nasze Technologie</h2>
-      <p>
-        Stosujemy nowoczesne metody, które łączą tradycyjne strategie z futurystycznymi technologiami, umożliwiając dynamiczny rozwój 
-        oraz przełomowe rozwiązania w każdej kampanii. Nasze rozwiązania są dedykowane graczom i korporacjom, które chcą osiągać więcej.
-      </p>
-    </section>
-
-    <!-- Sekcja "Kontakt" z futurystycznym stylem -->
+    <!-- Sekcja "Kontakt" – wyrównana do środka -->
     <section id="kontakt">
       <h2>Kontakt</h2>
       <p>
@@ -398,12 +385,11 @@
         window.location.href = url;
       });
 
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
         eveLoginBtn.style.display = "none";
         document.getElementById("loggedInPanel").style.display = "block";
-        document.getElementById("usefulLinksContainer").style.display = "block";
       }
 
       // ======= Obsługa formularza panelu kontaktowego =======

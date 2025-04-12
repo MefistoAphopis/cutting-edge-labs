@@ -91,6 +91,7 @@
         transition: background-color 0.3s ease;
         font-family: 'Roboto', sans-serif;
         color: #000;
+        text-decoration: none;
       }
       .btn-register:hover {
         background-color: #00e6b8;
@@ -223,7 +224,7 @@
       <h1>Cutting Edge Labs</h1>
     </header>
     
-    <!-- Sekcja Hero z ikonami i przyciskiem rejestracji -->
+    <!-- Sekcja Hero z ikonami, przyciskiem dołączenia oraz logowaniem przez ESI -->
     <div class="hero">
       <div>
         <h2>Przyszłość jest już tutaj</h2>
@@ -236,8 +237,16 @@
             <i class="fab fa-youtube"></i>
           </a>
         </div>
-        <!-- Przycisk rejestracji dla użytkowników -->
-        <button class="btn-register" id="openRegisterBtn">Zarejestruj się</button>
+        <!-- Przycisk "Dołącz teraz" zamiast "Zarejestruj się" -->
+        <button class="btn-register" id="openRegisterBtn">Dołącz teraz</button>
+        <!-- Nowy przycisk (odnośnik) logowania przez EVE Online ESI -->
+        <a 
+          href="https://login.eveonline.com/v2/oauth/authorize?response_type=code&amp;redirect_uri=https%3A%2F%2Fredfatephotos.github.io%2Fcutting-edge-labs%2F&amp;client_id=4kZtSFeB6kkwz45CSbD44AbS7043Binc&amp;scope=publicData%20esi-skills.read_skillqueue.v1%20esi-skills.read_skills.v1%20esi-characters.read_contacts.v1%20esi-characters.read_loyalty_points.v1%20esi-characters.read_corporation_roles.v1%20esi-characters.read_standings.v1%20esi-characters.read_agents_research.v1%20esi-characters.read_fatigue.v1%20esi-characters.read_blueprints.v1%20esi-characters.read_notifications.v1%20esi-characters.read_chat_channels.v1%20esi-characters.read_titles.v1%20esi-characters.read_fw_stats.v1"
+          class="btn-register"
+          style="display: inline-block; margin-top: 15px; text-align: center;"
+        >
+          Zaloguj się przez EVE Online ESI
+        </a>
       </div>
     </div>
     

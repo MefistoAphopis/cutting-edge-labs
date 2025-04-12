@@ -23,10 +23,11 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-
-        /* Przykładowy kursor – można usunąć lub zamienić na swój */
-        cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACNElEQVRYR+2Wv0sDQRSGv5kCQkDiXSQEJBQK7sBYKkWKhI2JRBEpAoKRZGJIkE0JFiEnaIOSDE05ETKSCVIEAlxCNJXFxN88uZ+2+cvbp7r3893Nr8Z3Vz/COzOYH6AaGgHrh/j2AOYA1Z1tq6vLji9NTv3vg9gCNjRv1fc9w4mVr5RURy0IRrvoCtKcuVgBngIuQO2J9kCQI5CC+B4TMB8oAdY1mWkpEFOkH9lA3Bj/dSMJJN+AVSAE1BAUKI9wCz3iV+s9xsclt/kAwY1jFpAKWCr1w4a0h1CgAE66dBWEAJ6QJmwi62CxXAHzK3mHJ9ZIguBJwK6dBY9m6mgy5yI0bSKqAakC7S9I80u2PZrcAUKHRzXgMJgJw6tA80ntOFwMdIM0YVLzvri4LA3V5NyrNFO0g6adCPi6f6NxHOYo8adl8c6rHsh6A/AkrRr9Fb9rvjuN3fOA/0pNpzVaI3oAQZqAq4BG4I4PSnfnn1pA/ZxRvxbQa7veKf/ALWMegA+G7E8AAAAASUVORK5CYII=") 16 16, auto;
+        /* Używamy customowego kursora – możesz go mieć jako plik PNG lub Data URI.
+           Tutaj przykład z Data URI dla kursora (hotspot: 16,16) */
+        cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
+      
       .header-container {
         position: fixed;
         top: 0;
@@ -73,7 +74,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk logowania przez EVE – ZASTĄPIŁ stary przycisk rejestracji */
+      /* Przyciski logowania – zmieniony przycisk na "Zaloguj się przez EVE" */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -107,7 +108,6 @@
         background: rgba(0, 0, 0, 0.9);
         border-top: 1px solid #333;
       }
-      /* Dyskretny przycisk Panel Admina (jeżeli jest Ci potrzebny) */
       .admin-button {
         position: fixed;
         bottom: 20px;
@@ -157,7 +157,7 @@
             <i class="fab fa-youtube"></i>
           </a>
         </div>
-        <!-- PRZYCISK: Zaloguj się przez EVE -->
+        <!-- PRZYCISK LOGOWANIA PRZEZ EVE -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
       </div>
     </div>
@@ -174,3 +174,73 @@
     <!-- Sekcja "Nasze Technologie" -->
     <section id="technologie">
       <h2>Nasze Technologie</h2>
+      <p>
+        Stosujemy nowoczesne metody, które łączą tradycyjne strategie z futurystycznymi technologiami, umożliwiając dynamiczny rozwój 
+        oraz przełomowe rozwiązania w każdej kampanii. Nasze rozwiązania są dedykowane graczom i korporacjom, które chcą osiągać więcej.
+      </p>
+    </section>
+
+    <!-- Sekcja "Kontakt" -->
+    <section id="kontakt">
+      <h2>Kontakt</h2>
+      <p>
+        Skontaktuj się z nami, aby dowiedzieć się więcej o naszych usługach oraz możliwościach współpracy:
+      </p>
+      <p>Email: kontakt@cuttingedgelabs.pl</p>
+      <p>Telefon: +48 123 456 789</p>
+      <p>
+        Dołącz do naszej społeczności na Discord:
+        <a href="https://discord.gg/HkvgVwbfy8" target="_blank">Kliknij tutaj</a>
+      </p>
+    </section>
+
+    <!-- Stopka -->
+    <footer class="footer">
+      <p>&copy; 2025 Cutting Edge Labs. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+    
+    <!-- (Opcjonalnie) Przycisk Panelu Admina -->
+    <button class="admin-button" id="adminBtn">Panel Admina</button>
+    
+    <script>
+      // ======= KONFIGURACJA EVE SSO =======
+      // Ustaw swoje dane (Client Secret nie umieszczaj w kodzie frontendowym!)
+      const clientId = "44257cb6866c45cdb044ab5704d3f9bc";
+      const redirectUri = "https://mefistoaphopis.github.io/cutting-edge-labs/";
+      const scope = "publicData";
+      // Przykładowy parametr state – powinien być unikalny i losowy
+      const state = "randomString123";
+
+      // Po kliknięciu w "Zaloguj się przez EVE"
+      const eveLoginBtn = document.getElementById("eveLoginBtn");
+      eveLoginBtn.addEventListener("click", () => {
+        const url = "https://login.eveonline.com/v2/oauth/authorize"
+          + "?response_type=code"
+          + "&redirect_uri=" + encodeURIComponent(redirectUri)
+          + "&client_id=" + clientId
+          + "&scope=" + encodeURIComponent(scope)
+          + "&state=" + encodeURIComponent(state);
+        window.location.href = url;
+      });
+
+      // ======= Animacje odsłaniania sekcji =======
+      const sections = document.querySelectorAll("section");
+      const observerOptions = { threshold: 0.2 };
+      const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      sections.forEach(section => sectionObserver.observe(section));
+
+      // ======= Panel Admina (opcjonalnie) =======
+      const adminBtn = document.getElementById("adminBtn");
+      adminBtn.addEventListener("click", () => {
+        alert("Tutaj może być logika panelu admina");
+      });
+    </script>
+  </body>
+</html>

@@ -11,7 +11,7 @@
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia – tło, fonty, customowy kursor i animacje odsłaniania sekcji */
+      /* Globalne ustawienia – tło, fonty, nowy customowy kursor i animacje odsłaniania sekcji */
       body {
         margin: 0;
         padding: 0;
@@ -24,9 +24,9 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Używamy nowego kursora w formacie SVG osadzonego jako Data URI
-           Hotspot ustawiony na (16,16), czyli środek 32x32 pixelewgo obrazu. */
-        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2366ffff;stop-opacity:1'/><stop offset='100%' style='stop-color:%23ccffff;stop-opacity:1'/></linearGradient></defs><polygon points='6,2 30,16 6,30' fill='url(%23grad)' stroke='%2366ffff' stroke-width='2'/><polygon points='6,2 18,16 6,30' fill='rgba(255,255,255,0.2)'/></svg>") 16 16, auto;
+        /* Nowy kursor - futuristic PNG osadzony jako Data URI.
+           Hotspot ustawiony na (16,16), co dla obrazu 32x32 pikseli oznacza środek. */
+        cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACNElEQVRYR+2Wv0sDQRSGv5kCQkDiXSQEJBQK7sBYKkWKhI2JRBEpAoKRZGJIkE0JFiEnaIOSDE05ETKSCVIEAlxCNJXFxN88uZ+2+cvbp7r3893Nr8Z3Vz/COzOYH6AaGgHrh/j2AOYA1Z1tq6vLji9NTv3vg9gCNjRv1fc9w4mVr5RURy0IRrvoCtKcuVgBngIuQO2J9kCQI5CC+B4TMB8oAdY1mWkpEFOkH9lA3Bj/dSMJJN+AVSAE1BAUKI9wCz3iV+s9xsclt/kAwY1jFpAKWCr1w4a0h1CgAE66dBWEAJ6QJmwi62CxXAHzK3mHJ9ZIguBJwK6dBY9m6mgy5yI0bSKqAakC7S9I80u2PZrcAUKHRzXgMJgJw6tA80ntOFwMdIM0YVLzvri4LA3V5NyrNFO0g6adCPi6f6NxHOYo8adl8c6rHsh6A/AkrRr9Fb9rvjuN3fOA/0pNpzVaI3oAQZqAq4BG4I4PSnfnn1pA/ZxRvxbQa7veKf/ALWMegA+G7E8AAAAASUVORK5CYII=") 16 16, auto;
       }
       
       /* Nagłówek – wycentrowany tytuł */

@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Cutting Edge Labs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Import czcionki Orbitron dla tytułów i ogólnego stylu -->
+    <!-- Import czcionki Orbitron dla tytułów -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto, użytej na przycisku -->
+    <!-- Import czcionki Roboto, użytej w panelu i przyciskach -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+      /* Globalne ustawienia – tło, fonty, customowy kursor i animacje */
       body {
         margin: 0;
         padding: 0;
@@ -23,10 +24,9 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – tutaj przykładowy futurystyczny PNG osadzony jako Data URI.
-           Hotspot (punkt aktywacji) ustawiony na 16,16 (środek obrazu 32x32). */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
+      
       .header-container {
         position: fixed;
         top: 0;
@@ -42,6 +42,7 @@
         font-size: 28px;
         letter-spacing: 2px;
       }
+      
       .hero {
         height: 100vh;
         display: flex;
@@ -73,7 +74,8 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk logowania przez EVE – pojawia się domyślnie */
+      
+      /* Przycisk logowania przez EVE */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -89,36 +91,47 @@
       .btn-eve:hover {
         background-color: #00e6b8;
       }
-      /* Panel kontaktowy – ukryty domyślnie, pojawia się po zalogowaniu */
+      
+      /* Ulepszony panel kontaktowy, wyświetlany po zalogowaniu */
       #loggedInPanel {
         display: none;
         margin-top: 20px;
         background: rgba(0, 0, 0, 0.85);
-        padding: 20px;
-        border-radius: 8px;
+        padding: 30px;
+        border-radius: 10px;
         width: 90%;
         max-width: 400px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        border: 2px solid #00ffcc;
+        animation: fadeIn 0.5s ease forwards;
+        font-family: 'Roboto', sans-serif;
+      }
+      /* Kluczowe animacje */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
       #loggedInPanel h3 {
         margin-top: 0;
-        font-family: 'Roboto', sans-serif;
         color: #00ffcc;
       }
-      #loggedInPanel form input[type="text"],
-      #loggedInPanel form input[type="submit"] {
+      #loggedInPanel form input[type="text"] {
         width: 100%;
         padding: 10px;
         margin: 10px 0;
         border: none;
         border-radius: 4px;
         font-size: 16px;
-      }
-      #loggedInPanel form input[type="text"] {
         background: #222;
         color: #e0e0e0;
       }
       #loggedInPanel form input[type="submit"] {
+        width: 100%;
+        padding: 10px;
         background-color: #00ffcc;
+        border: none;
+        border-radius: 4px;
+        font-size: 18px;
         color: #000;
         cursor: pointer;
         transition: background-color 0.3s ease;
@@ -126,6 +139,7 @@
       #loggedInPanel form input[type="submit"]:hover {
         background-color: #00e6b8;
       }
+      
       /* Animacja odsłaniania sekcji */
       section {
         opacity: 0;
@@ -139,6 +153,7 @@
         opacity: 1;
         transform: translateY(0);
       }
+      
       .footer {
         text-align: center;
         padding: 20px;
@@ -196,7 +211,7 @@
         </div>
         <!-- Przycisk logowania przez EVE (domyślnie widoczny) -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
-        <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
+        <!-- Panel kontaktowy (pokazuje się po zalogowaniu) -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
           <form id="contactForm">
@@ -254,7 +269,7 @@
       const clientId = "44257cb6866c45cdb044ab5704d3f9bc";
       const redirectUri = "https://mefistoaphopis.github.io/cutting-edge-labs/";
       const scope = "publicData";
-      // Przykładowy parametr state – generujemy prosty ciąg; w produkcji powinien być losowy i trudny do odgadnięcia
+      // Przykładowy parametr state – w produkcji powinien być losowy i trudny do odgadnięcia
       const state = "randomString123";
 
       const eveLoginBtn = document.getElementById("eveLoginBtn");
@@ -282,8 +297,7 @@
       document.getElementById("contactForm").addEventListener("submit", function(e) {
         e.preventDefault();
         alert("Dziękujemy za przesłanie danych! Skontaktujemy się z Tobą.");
-        // Tutaj możesz dodać kod do wysłania danych do backendu (np. fetch)
-        // Po wysłaniu, opcjonalnie możesz ukryć panel lub wyczyścić formularz
+        // Tutaj możesz dodać kod do wysyłki danych do backendu (np. fetch)
       });
 
       // ======= Animacja odsłaniania sekcji =======

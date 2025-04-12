@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Import czcionki Orbitron dla tytułów i ogólnego stylu -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto, użytej na przycisku rejestracji -->
+    <!-- Import czcionki Roboto, użytej na przycisku -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia – tło, fonty, customowy kursor i animacje odsłaniania sekcji */
       body {
         margin: 0;
         padding: 0;
@@ -24,12 +23,10 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Używamy nowego kursora w formacie SVG osadzonego jako Data URI
-           Hotspot ustawiony na (16,16), czyli środek 32x32 pixelewgo obrazu. */
-        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2366ffff;stop-opacity:1'/><stop offset='100%' style='stop-color:%23ccffff;stop-opacity:1'/></linearGradient></defs><polygon points='6,2 30,16 6,30' fill='url(%23grad)' stroke='%2366ffff' stroke-width='2'/><polygon points='6,2 18,16 6,30' fill='rgba(255,255,255,0.2)'/></svg>") 16 16, auto;
+
+        /* Przykładowy kursor – można usunąć lub zamienić na swój */
+        cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACNElEQVRYR+2Wv0sDQRSGv5kCQkDiXSQEJBQK7sBYKkWKhI2JRBEpAoKRZGJIkE0JFiEnaIOSDE05ETKSCVIEAlxCNJXFxN88uZ+2+cvbp7r3893Nr8Z3Vz/COzOYH6AaGgHrh/j2AOYA1Z1tq6vLji9NTv3vg9gCNjRv1fc9w4mVr5RURy0IRrvoCtKcuVgBngIuQO2J9kCQI5CC+B4TMB8oAdY1mWkpEFOkH9lA3Bj/dSMJJN+AVSAE1BAUKI9wCz3iV+s9xsclt/kAwY1jFpAKWCr1w4a0h1CgAE66dBWEAJ6QJmwi62CxXAHzK3mHJ9ZIguBJwK6dBY9m6mgy5yI0bSKqAakC7S9I80u2PZrcAUKHRzXgMJgJw6tA80ntOFwMdIM0YVLzvri4LA3V5NyrNFO0g6adCPi6f6NxHOYo8adl8c6rHsh6A/AkrRr9Fb9rvjuN3fOA/0pNpzVaI3oAQZqAq4BG4I4PSnfnn1pA/ZxRvxbQa7veKf/ALWMegA+G7E8AAAAASUVORK5CYII=") 16 16, auto;
       }
-      
-      /* Nagłówek – wycentrowany tytuł */
       .header-container {
         position: fixed;
         top: 0;
@@ -45,8 +42,6 @@
         font-size: 28px;
         letter-spacing: 2px;
       }
-      
-      /* Sekcja Hero */
       .hero {
         height: 100vh;
         display: flex;
@@ -54,7 +49,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding-top: 120px; /* uwzględniamy wysokość nagłówka */
+        padding-top: 120px;
       }
       .hero h2 {
         font-size: 48px;
@@ -65,7 +60,6 @@
         max-width: 800px;
         margin: 0 auto 20px;
       }
-      /* Ikonki w sekcji Hero */
       .hero-icons {
         margin-top: 30px;
       }
@@ -79,10 +73,10 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk rejestracji dla użytkowników – z użyciem czcionki Roboto */
-      .btn-register {
+      /* Przycisk logowania przez EVE – ZASTĄPIŁ stary przycisk rejestracji */
+      .btn-eve {
         margin-top: 20px;
-        padding: 10px 20px;
+        padding: 12px 24px;
         background-color: #00ffcc;
         border: none;
         border-radius: 4px;
@@ -91,13 +85,10 @@
         transition: background-color 0.3s ease;
         font-family: 'Roboto', sans-serif;
         color: #000;
-        text-decoration: none;
       }
-      .btn-register:hover {
+      .btn-eve:hover {
         background-color: #00e6b8;
       }
-
-      /* Animacja odsłaniania sekcji – domyślnie przezroczyste i przesunięte w dół */
       section {
         opacity: 0;
         transform: translateY(20px);
@@ -106,88 +97,17 @@
         max-width: 1200px;
         margin: auto;
       }
-      /* Klasa visible – sekcja staje się widoczna */
       section.visible {
         opacity: 1;
         transform: translateY(0);
       }
-      section h2 {
-        margin-bottom: 20px;
-      }
-      
-      /* Stopka */
       .footer {
         text-align: center;
         padding: 20px;
         background: rgba(0, 0, 0, 0.9);
         border-top: 1px solid #333;
       }
-      
-      /* Stylizacja modal oraz panelu admina */
-      .modal {
-        display: none; /* domyślnie ukryty */
-        position: fixed;
-        z-index: 2000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.8);
-      }
-      .modal-content {
-        background: #111;
-        margin: 10% auto;
-        padding: 20px;
-        border: 1px solid #444;
-        width: 90%;
-        max-width: 500px;
-        border-radius: 8px;
-        color: #e0e0e0;
-        position: relative;
-      }
-      .modal-content h3 {
-        margin-top: 0;
-      }
-      .close {
-        color: #aaa;
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-      .close:hover {
-        color: #fff;
-      }
-      .modal form {
-        display: flex;
-        flex-direction: column;
-      }
-      .modal form input[type="text"],
-      .modal form input[type="email"],
-      .modal form input[type="password"] {
-        padding: 10px;
-        margin: 10px 0;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-      }
-      .modal form input[type="submit"] {
-        padding: 10px;
-        background-color: #00ffcc;
-        border: none;
-        border-radius: 4px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-      .modal form input[type="submit"]:hover {
-        background-color: #00e6b8;
-      }
-      
-      /* Przycisk Panel Admina – dyskretny w dolnym prawym rogu */
+      /* Dyskretny przycisk Panel Admina (jeżeli jest Ci potrzebny) */
       .admin-button {
         position: fixed;
         bottom: 20px;
@@ -206,8 +126,6 @@
       .admin-button:hover {
         opacity: 1;
       }
-      
-      /* Responsive: modyfikacja rozmiarów nagłówka i tytułu sekcji na mniejszych ekranach */
       @media(max-width: 768px) {
         .header-container h1 {
           font-size: 24px;
@@ -219,16 +137,18 @@
     </style>
   </head>
   <body>
-    <!-- Nagłówek z wycentrowanym tytułem -->
+    <!-- Nagłówek -->
     <header class="header-container">
       <h1>Cutting Edge Labs</h1>
     </header>
     
-    <!-- Sekcja Hero z ikonami, przyciskiem dołączenia oraz logowaniem przez ESI -->
+    <!-- Sekcja Hero -->
     <div class="hero">
       <div>
         <h2>Przyszłość jest już tutaj</h2>
-        <p>Polska korporacja Cutting Edge Labs operuje w nullsecu, wykorzystując innowacyjne techniki gry w EVE Online, redefiniując granice możliwości.</p>
+        <p>
+          Polska korporacja Cutting Edge Labs operuje w nullsecu, wykorzystując innowacyjne techniki gry w EVE Online, redefiniując granice możliwości.
+        </p>
         <div class="hero-icons">
           <a href="https://discord.gg/HkvgVwbfy8" target="_blank" class="hero-icon">
             <i class="fab fa-discord"></i>
@@ -237,148 +157,20 @@
             <i class="fab fa-youtube"></i>
           </a>
         </div>
-        <!-- Przycisk "Dołącz teraz" zamiast "Zarejestruj się" -->
-        <button class="btn-register" id="openRegisterBtn">Dołącz teraz</button>
-        <!-- Nowy przycisk (odnośnik) logowania przez EVE Online ESI -->
-        <a 
-          href="https://login.eveonline.com/v2/oauth/authorize?response_type=code&amp;redirect_uri=https%3A%2F%2Fredfatephotos.github.io%2Fcutting-edge-labs%2F&amp;client_id=4kZtSFeB6kkwz45CSbD44AbS7043Binc&amp;scope=publicData%20esi-skills.read_skillqueue.v1%20esi-skills.read_skills.v1%20esi-characters.read_contacts.v1%20esi-characters.read_loyalty_points.v1%20esi-characters.read_corporation_roles.v1%20esi-characters.read_standings.v1%20esi-characters.read_agents_research.v1%20esi-characters.read_fatigue.v1%20esi-characters.read_blueprints.v1%20esi-characters.read_notifications.v1%20esi-characters.read_chat_channels.v1%20esi-characters.read_titles.v1%20esi-characters.read_fw_stats.v1"
-          class="btn-register"
-          style="display: inline-block; margin-top: 15px; text-align: center;"
-        >
-          Zaloguj się przez EVE Online ESI
-        </a>
+        <!-- PRZYCISK: Zaloguj się przez EVE -->
+        <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
       </div>
     </div>
-    
+
     <!-- Sekcja "O Nas" -->
     <section id="o-nas">
       <h2>O Nas</h2>
-      <p>W Cutting Edge Labs skupiamy się na rozwijaniu zaawansowanych metod i technologii, które podnoszą poprzeczkę w świecie EVE Online. Nasza korporacja, działająca w sercu nullsec, jest źródłem innowacji i determinacji, gwarantując naszym partnerom przewagę strategiczną.</p>
+      <p>
+        W Cutting Edge Labs skupiamy się na rozwijaniu zaawansowanych metod i technologii, które podnoszą poprzeczkę w świecie EVE Online. 
+        Nasza korporacja, działająca w sercu nullsec, jest źródłem innowacji i determinacji, gwarantując naszym partnerom przewagę strategiczną.
+      </p>
     </section>
-    
+
     <!-- Sekcja "Nasze Technologie" -->
     <section id="technologie">
       <h2>Nasze Technologie</h2>
-      <p>Stosujemy nowoczesne metody, które łączą tradycyjne strategie z futurystycznymi technologiami, umożliwiając dynamiczny rozwój oraz przełomowe rozwiązania w każdej kampanii. Nasze rozwiązania są dedykowane graczom i korporacjom, które chcą osiągać więcej.</p>
-    </section>
-    
-    <!-- Sekcja Kontakt -->
-    <section id="kontakt">
-      <h2>Kontakt</h2>
-      <p>Skontaktuj się z nami, aby dowiedzieć się więcej o naszych usługach oraz możliwościach współpracy:</p>
-      <p>Email: kontakt@cuttingedgelabs.pl</p>
-      <p>Telefon: +48 123 456 789</p>
-      <p>Dołącz do naszej społeczności na Discord: <a href="https://discord.gg/HkvgVwbfy8" target="_blank">Kliknij tutaj</a></p>
-    </section>
-    
-    <!-- Stopka -->
-    <footer class="footer">
-      <p>&copy; 2025 Cutting Edge Labs. Wszelkie prawa zastrzeżone.</p>
-    </footer>
-    
-    <!-- Modal rejestracji użytkownika -->
-    <div id="registrationModal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="closeRegisterModal">&times;</span>
-        <h3>Rejestracja</h3>
-        <form id="registrationForm" action="#" method="post">
-          <input type="email" name="email" placeholder="Twój email" required>
-          <input type="text" name="discordId" placeholder="Discord ID" required>
-          <input type="text" name="eveNick" placeholder="Nick z EVE Online" required>
-          <input type="submit" value="Zarejestruj się">
-        </form>
-      </div>
-    </div>
-    
-    <!-- Modal panelu admina -->
-    <div id="adminModal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="closeAdminModal">&times;</span>
-        <h3>Panel Admina - Rejestracja</h3>
-        <form id="adminForm" action="#" method="post">
-          <input type="email" name="adminEmail" placeholder="Twój email" required>
-          <input type="password" name="adminKey" placeholder="Klucz dostępu" required>
-          <input type="submit" value="Zarejestruj się jako Admin">
-        </form>
-      </div>
-    </div>
-    
-    <!-- Dyskretny przycisk otwierający panel admina -->
-    <button class="admin-button" id="openAdminBtn">Panel Admina</button>
-    
-    <!-- Skrypt do obsługi modali oraz animacji odsłaniania sekcji -->
-    <script>
-      // Modal rejestracji użytkownika
-      const registrationModal = document.getElementById('registrationModal');
-      const openRegisterBtn = document.getElementById('openRegisterBtn');
-      const closeRegisterModal = document.getElementById('closeRegisterModal');
-
-      openRegisterBtn.addEventListener('click', () => {
-        registrationModal.style.display = 'block';
-      });
-      closeRegisterModal.addEventListener('click', () => {
-        registrationModal.style.display = 'none';
-      });
-
-      // Modal panelu admina
-      const adminModal = document.getElementById('adminModal');
-      const openAdminBtn = document.getElementById('openAdminBtn');
-      const closeAdminModal = document.getElementById('closeAdminModal');
-
-      openAdminBtn.addEventListener('click', () => {
-        adminModal.style.display = 'block';
-      });
-      closeAdminModal.addEventListener('click', () => {
-        adminModal.style.display = 'none';
-      });
-
-      // Zamknięcie modali po kliknięciu poza oknem modalnym
-      window.addEventListener('click', (event) => {
-        if (event.target === registrationModal) {
-          registrationModal.style.display = 'none';
-        }
-        if (event.target === adminModal) {
-          adminModal.style.display = 'none';
-        }
-      });
-
-      // Prosty przykład weryfikacji klucza admina (walidacja po stronie klienta, niewystarczająca dla produkcji)
-      document.getElementById('adminForm').addEventListener('submit', function(e) {
-        const key = this.adminKey.value;
-        const validKey = "TajnyKlucz123"; // Ustaw swój tajny klucz
-        if (key !== validKey) {
-          e.preventDefault();
-          alert("Błędny klucz dostępu!");
-        }
-      });
-
-      // Przykład obsługi formularza rejestracji użytkownika
-      document.getElementById('registrationForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert("Dziękujemy za rejestrację, skontaktujemy się z Tobą w ciągu 3 dni!");
-        // Tutaj dodaj kod do wysyłki danych do backendu (np. fetch, XMLHttpRequest)
-        registrationModal.style.display = 'none';
-      });
-
-      // Animacja odsłaniania sekcji przy przewijaniu
-      const sections = document.querySelectorAll('section');
-      const observerOptions = {
-        threshold: 0.2
-      };
-
-      const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            // Jeśli sekcje mają być animowane tylko raz, można odłączyć obserwatora:
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      sections.forEach(section => {
-        sectionObserver.observe(section);
-      });
-    </script>
-  </body>
-</html>

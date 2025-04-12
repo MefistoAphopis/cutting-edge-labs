@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Import czcionki Orbitron dla tytułów -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto użytej w panelu i przyciskach -->
+    <!-- Import czcionki Roboto, użytej w panelu i przyciskach -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -27,29 +27,45 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – przykładowy PNG Data URI, hotspot: (16,16) dla obrazu 32×32 */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
-      /* ===== Pasek nawigacyjny po prawej stronie ===== */
+      .header-container {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.8);
+        padding: 20px;
+        text-align: center;
+        z-index: 1100;
+        border-bottom: 1px solid #333;
+      }
+      .header-container h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 2px;
+      }
+      
+      /* ===== Responsive Navbar – wysuwany pasek po prawej ===== */
       #sideNav {
         position: fixed;
         top: 50%;
-        right: -180px; /* Ukryty poza ekranem */
+        /* Domyślnie pasek wysuwa się z prawej, ale pozostaje częściowo widoczny */
+        right: -120px;
         transform: translateY(-50%);
-        width: 180px;
-        background: rgba(0, 0, 0, 0.8);
+        width: 120px;
+        background: rgba(0,0,0,0.8);
         border-radius: 10px 0 0 10px;
         box-shadow: -4px 4px 8px rgba(0,0,0,0.5);
         transition: right 0.3s ease;
         z-index: 1200;
       }
       #sideNav:hover {
-        right: 0; /* Pasek wysuwa się */
+        right: 0;
       }
       #sideNav .nav-item {
         display: flex;
         align-items: center;
-        padding: 12px;
+        padding: 12px 8px;
         text-decoration: none;
         color: #e0e0e0;
         border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -59,11 +75,11 @@
         border-bottom: none;
       }
       #sideNav .nav-item i {
-        margin-right: 10px;
+        margin-right: 8px;
         font-size: 20px;
       }
       #sideNav .nav-item span {
-        font-size: 18px;
+        font-size: 16px;
         font-family: 'Roboto', sans-serif;
       }
       #sideNav .nav-item:hover {
@@ -123,7 +139,7 @@
       #loggedInPanel {
         display: none;
         margin: 20px auto;
-        background: rgba(0, 0, 0, 0.85);
+        background: rgba(0,0,0,0.85);
         padding: 30px;
         border-radius: 10px;
         width: 90%;
@@ -190,7 +206,7 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         overflow: hidden;
-        /* Ustalona proporcja kwadratowa (np. 1:1) – na desktopie karty mają 250×250, ale elastycznie się skalują */
+        /* Proporcje kwadratowe przy minimalnej szerokości 250px */
         aspect-ratio: 1 / 1;
       }
       .card iframe {
@@ -248,55 +264,16 @@
         opacity: 1;
       }
       
-      /* ===== Responsive Navbar (po prawej stronie) ===== */
-      #sideNav {
-        position: fixed;
-        top: 50%;
-        right: -180px; /* Pasek ukryty poza ekranem */
-        transform: translateY(-50%);
-        width: 180px;
-        background: rgba(0,0,0,0.8);
-        border-radius: 10px 0 0 10px;
-        box-shadow: -4px 4px 8px rgba(0,0,0,0.5);
-        transition: right 0.3s ease;
-        z-index: 1200;
-      }
-      #sideNav:hover {
-        right: 0;
-      }
-      #sideNav .nav-item {
-        display: flex;
-        align-items: center;
-        padding: 12px;
-        text-decoration: none;
-        color: #e0e0e0;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        transition: background 0.3s ease;
-      }
-      #sideNav .nav-item:last-child {
-        border-bottom: none;
-      }
-      #sideNav .nav-item i {
-        margin-right: 10px;
-        font-size: 20px;
-      }
-      #sideNav .nav-item span {
-        font-size: 18px;
-        font-family: 'Roboto', sans-serif;
-      }
-      #sideNav .nav-item:hover {
-        background: rgba(0,0,0,0.6);
-      }
-      
-      /* ===== Responsywność ogólna ===== */
+      /* ===== Responsywność ===== */
       @media(max-width: 768px) {
         .header-container h1 { font-size: 24px; }
         .hero h2 { font-size: 36px; }
         .hero p { font-size: 18px; padding: 0 10px; }
         .btn-eve { font-size: 16px; padding: 10px 20px; }
         #loggedInPanel, #usefulLinksContainer { max-width: 90%; padding: 20px; }
+        .cards-container { gap: 15px; }
         #o-nas p, #kontakt p { font-size: 16px; }
-        /* Ukrywamy pasek nawigacyjny po prawej na mniejszych ekranach */
+        /* Ukrywamy pasek nawigacyjny po prawej dla mniejszych ekranów */
         #sideNav { display: none; }
       }
       @media(max-width: 480px) {
@@ -336,8 +313,7 @@
         </div>
         <!-- Przycisk logowania przez EVE -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
-        
-        <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
+        <!-- Panel kontaktowy (po zalogowaniu) -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
           <form id="contactForm">
@@ -346,7 +322,6 @@
             <input type="submit" value="Wyślij">
           </form>
         </div>
-        
         <!-- Sekcja Useful Links -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
@@ -404,7 +379,7 @@
     <button class="admin-button" id="adminBtn">Panel Admina</button>
     
     <script>
-      // ======= Responsive Navbar Toggle (mobile) =======
+      // ===== Responsive Navbar Toggle (mobile) =====
       const mobileMenu = document.getElementById("mobile-menu");
       const navMenu = document.querySelector(".nav-menu");
       if (mobileMenu) {
@@ -413,13 +388,12 @@
         });
       }
       
-      // ======= KONFIGURACJA EVE SSO =======
+      // ===== KONFIGURACJA EVE SSO =====
       const clientId = "44257cb6866c45cdb044ab5704d3f9bc";
       const redirectUri = "https://mefistoaphopis.github.io/cutting-edge-labs/";
       const scope = "publicData";
       const state = "randomString123";
       const eveLoginBtn = document.getElementById("eveLoginBtn");
-
       eveLoginBtn.addEventListener("click", () => {
         const url = "https://login.eveonline.com/v2/oauth/authorize"
           + "?response_type=code"
@@ -429,16 +403,16 @@
           + "&state=" + encodeURIComponent(state);
         window.location.href = url;
       });
-
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
+      
+      // ===== Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =====
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
         eveLoginBtn.style.display = "none";
         document.getElementById("loggedInPanel").style.display = "block";
         document.getElementById("usefulLinksContainer").style.display = "block";
       }
-
-      // ======= Obsługa formularza panelu kontaktowego =======
+      
+      // ===== Obsługa formularza panelu kontaktowego =====
       document.getElementById("contactForm").addEventListener("submit", function(e) {
         e.preventDefault();
         const panel = document.getElementById("loggedInPanel");
@@ -451,8 +425,8 @@
           </p>
         `;
       });
-
-      // ======= Animacja odsłaniania sekcji =======
+      
+      // ===== Animacja odsłaniania sekcji =====
       const sections = document.querySelectorAll("section");
       const observerOptions = { threshold: 0.2 };
       const sectionObserver = new IntersectionObserver((entries, observer) => {
@@ -464,8 +438,8 @@
         });
       }, observerOptions);
       sections.forEach(section => sectionObserver.observe(section));
-
-      // ======= Panel Admina (opcjonalnie) =======
+      
+      // ===== Panel Admina (opcjonalnie) =====
       const adminBtn = document.getElementById("adminBtn");
       adminBtn.addEventListener("click", () => {
         alert("Tutaj może być logika panelu admina");

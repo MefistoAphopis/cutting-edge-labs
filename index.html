@@ -11,7 +11,6 @@
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia – tło, fonty, niestandardowy kursor i animacje odsłaniania sekcji */
       body {
         margin: 0;
         padding: 0;
@@ -73,7 +72,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk logowania przez EVE – widoczny domyślnie */
+      /* Przycisk logowania przez EVE (widoczny domyślnie) */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -136,15 +135,17 @@
       #loggedInPanel form input[type="submit"]:hover {
         background-color: #00e6b8;
       }
-      /* Sekcja "Useful Links" – nowa sekcja pod formularzami */
-      #useful-links {
-        padding: 60px 20px;
+      /* Nowa sekcja Useful Links – umieszczona pod panelem kontaktowym */
+      #usefulLinksContainer {
+        display: none;
+        margin: 20px auto;
+        padding: 20px;
         max-width: 1200px;
-        margin: auto;
         text-align: center;
       }
-      #useful-links h2 {
+      #usefulLinksContainer h2 {
         margin-bottom: 20px;
+        font-family: 'Roboto', sans-serif;
       }
       .cards-container {
         display: flex;
@@ -232,7 +233,7 @@
         </div>
         <!-- Przycisk logowania przez EVE (widoczny domyślnie) -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
-        <!-- Panel kontaktowy pojawiający się po logowaniu -->
+        <!-- Panel kontaktowy (po zalogowaniu), wyświetlany zamiast przycisku -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
           <form id="contactForm">
@@ -240,6 +241,24 @@
             <input type="text" name="inGameNick" placeholder="Twój Nick w grze" required>
             <input type="submit" value="Wyślij">
           </form>
+        </div>
+        <!-- Sekcja Useful Links - umieszczona tuż pod panelem kontaktowym -->
+        <div id="usefulLinksContainer">
+          <h2>Useful Links</h2>
+          <div class="cards-container">
+            <div class="card">
+              <iframe src="https://www.youtube.com/embed/CDV92opHDWc" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="card">
+              <iframe src="https://www.youtube.com/embed/BCSeISYcoyI" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="card">
+              <iframe src="https://www.youtube.com/embed/0bjTrPutt4k" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="card">
+              <iframe src="https://www.youtube.com/embed/cu5FHzfkMW8" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -278,25 +297,6 @@
       </p>
     </section>
 
-    <!-- Nowa sekcja "Useful Links" z embedowanymi filmami -->
-    <section id="useful-links">
-      <h2>Useful Links</h2>
-      <div class="cards-container">
-        <div class="card">
-          <iframe src="https://www.youtube.com/embed/CDV92opHDWc" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="card">
-          <iframe src="https://www.youtube.com/embed/BCSeISYcoyI" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="card">
-          <iframe src="https://www.youtube.com/embed/0bjTrPutt4k" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="card">
-          <iframe src="https://www.youtube.com/embed/cu5FHzfkMW8" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
-
     <!-- Stopka -->
     <footer class="footer">
       <p>&copy; 2025 Cutting Edge Labs. Wszelkie prawa zastrzeżone.</p>
@@ -307,7 +307,6 @@
     
     <script>
       // ======= KONFIGURACJA EVE SSO =======
-      // Ustaw dane (Client Secret nie ujawniaj po stronie klienta!)
       const clientId = "44257cb6866c45cdb044ab5704d3f9bc";
       const redirectUri = "https://mefistoaphopis.github.io/cutting-edge-labs/";
       const scope = "publicData";
@@ -324,11 +323,15 @@
         window.location.href = url;
       });
 
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy =======
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy i Useful Links =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
+        // Ukrywamy przycisk logowania przez EVE
         eveLoginBtn.style.display = "none";
+        // Pokazujemy panel kontaktowy
         document.getElementById("loggedInPanel").style.display = "block";
+        // Pokazujemy sekcję Useful Links tuż pod panelem kontaktowym
+        document.getElementById("usefulLinksContainer").style.display = "block";
       }
 
       // ======= Obsługa formularza panelu kontaktowego =======

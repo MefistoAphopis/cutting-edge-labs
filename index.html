@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Import czcionki Orbitron dla tytułów -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto, użytej w panelu i przyciskach -->
+    <!-- Import czcionki Roboto użytej w panelu i przyciskach -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,7 +24,7 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – przykładowy PNG Data URI, hotspot: (16,16) dla obrazu 32x32 */
+        /* Niestandardowy kursor – przykładowy PNG osadzony jako Data URI, hotspot: (16,16) dla obrazu 32x32 */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
       .header-container {
@@ -42,6 +42,7 @@
         font-size: 28px;
         letter-spacing: 2px;
       }
+      
       .hero {
         height: 100vh;
         display: flex;
@@ -73,7 +74,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk logowania przez EVE – widoczny domyślnie */
+      /* Przyciski logowania przez EVE */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -89,7 +90,7 @@
       .btn-eve:hover {
         background-color: #00e6b8;
       }
-      /* Panel kontaktowy – ukryty domyślnie, wyśrodkowany */
+      /* Panel kontaktowy – pojawia się po zalogowaniu, wyśrodkowany */
       #loggedInPanel {
         display: none;
         margin: 20px auto;
@@ -136,12 +137,13 @@
       #loggedInPanel form input[type="submit"]:hover {
         background-color: #00e6b8;
       }
-      /* Sekcja Useful Links – umieszczona tuż pod panelem kontaktowym, wyświetlana zawsze */
+      /* Nowa sekcja Useful Links – teraz wyświetlana zawsze pod panelem kontaktowym */
       #usefulLinksContainer {
         margin: 20px auto;
         padding: 20px;
         max-width: 1200px;
         text-align: center;
+        display: block;
       }
       #usefulLinksContainer h2 {
         margin-bottom: 20px;
@@ -166,10 +168,22 @@
         width: 100%;
         height: 170px;
         display: block;
-        transition: transform 0.3s ease;
       }
-      .card iframe:hover {
-        transform: scale(1.05);
+      /* Sekcje "O Nas" oraz "Kontakt" – dostosowane style inspirowane stylem Star Wars */
+      #o-nas p, #kontakt p {
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        margin: 0 auto;
+        max-width: 800px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+      }
+      /* Przykładowy tekst, inspiracja Star Wars */
+      #o-nas {
+        padding: 60px 20px;
+      }
+      #kontakt {
+        padding: 60px 20px;
       }
       /* Animacja odsłaniania sekcji */
       section {
@@ -205,7 +219,7 @@
       .admin-button:hover {
         opacity: 1;
       }
-      /* Responsywność */
+      /* RESPONSYWNOŚĆ */
       @media(max-width: 768px) {
         .header-container h1 {
           font-size: 24px;
@@ -235,6 +249,9 @@
         #usefulLinksContainer h2 {
           font-size: 24px;
         }
+        #o-nas p, #kontakt p {
+          font-size: 16px;
+        }
       }
       @media(max-width: 480px) {
         .header-container h1 {
@@ -260,6 +277,9 @@
         #usefulLinksContainer h2 {
           font-size: 20px;
         }
+        .card iframe {
+          height: 140px;
+        }
       }
     </style>
   </head>
@@ -284,7 +304,7 @@
             <i class="fab fa-youtube"></i>
           </a>
         </div>
-        <!-- Przycisk logowania przez EVE (domyślnie widoczny) -->
+        <!-- Przycisk logowania przez EVE (widoczny domyślnie) -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
         <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
         <div id="loggedInPanel">
@@ -295,7 +315,7 @@
             <input type="submit" value="Wyślij">
           </form>
         </div>
-        <!-- Sekcja Useful Links, która będzie widoczna zawsze -->
+        <!-- Sekcja Useful Links pojawiająca się pod panelem kontaktowym -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
           <div class="cards-container">
@@ -315,16 +335,17 @@
         </div>
       </div>
     </div>
-    
-    <!-- Sekcja "O Nas" -->
+
+    <!-- Sekcja "O Nas" z futurystycznym tekstem inspirowanym Star Wars -->
     <section id="o-nas">
       <h2>O Nas</h2>
       <p>
-        W Cutting Edge Labs skupiamy się na rozwijaniu zaawansowanych metod i technologii, które podnoszą poprzeczkę w świecie EVE Online. 
-        Nasza korporacja, działająca w sercu nullsec, jest źródłem innowacji i determinacji, gwarantując naszym partnerom przewagę strategiczną.
+        Cutting Edge Labs to futurystyczna korporacja z EVE Online, gdzie innowacja spotyka się z nieograniczonym potencjałem kosmicznych możliwości.<br>
+        Przekraczamy granice, osiągamy to, co wydaje się niemożliwe, i prowadzimy naszych partnerów ku zwycięstwu.<br>
+        May the Force be with us.
       </p>
     </section>
-    
+
     <!-- Sekcja "Nasze Technologie" -->
     <section id="technologie">
       <h2>Nasze Technologie</h2>
@@ -333,12 +354,13 @@
         oraz przełomowe rozwiązania w każdej kampanii. Nasze rozwiązania są dedykowane graczom i korporacjom, które chcą osiągać więcej.
       </p>
     </section>
-    
-    <!-- Sekcja "Kontakt" -->
+
+    <!-- Sekcja "Kontakt" z futurystycznym stylem -->
     <section id="kontakt">
       <h2>Kontakt</h2>
       <p>
-        Skontaktuj się z nami, aby dowiedzieć się więcej o naszych usługach oraz możliwościach współpracy:
+        Skontaktuj się z nami, by odkryć nowe horyzonty i stać się częścią kosmicznej rewolucji.<br>
+        Dołącz do naszej misji i pozwól, by każdy sojusz zmieniał przyszłość wszechświata.
       </p>
       <p>Email: kontakt@cuttingedgelabs.pl</p>
       <p>Telefon: +48 123 456 789</p>
@@ -349,7 +371,7 @@
         </a>
       </p>
     </section>
-    
+
     <!-- Stopka -->
     <footer class="footer">
       <p>&copy; 2025 Cutting Edge Labs. Wszelkie prawa zastrzeżone.</p>
@@ -376,14 +398,13 @@
         window.location.href = url;
       });
 
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy =======
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
         eveLoginBtn.style.display = "none";
         document.getElementById("loggedInPanel").style.display = "block";
+        document.getElementById("usefulLinksContainer").style.display = "block";
       }
-      
-      // Useful Links – zawsze widoczne (już domyślnie, nie ma warunku)
 
       // ======= Obsługa formularza panelu kontaktowego =======
       document.getElementById("contactForm").addEventListener("submit", function(e) {

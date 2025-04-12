@@ -11,7 +11,7 @@
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      /* Globalne ustawienia */
+      /* ===== Globalne ustawienia ===== */
       body {
         margin: 0;
         padding: 0;
@@ -24,10 +24,9 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor (PNG Data URI) */
+        /* Niestandardowy kursor – przykładowy PNG Data URI, hotspot ustawiony na 16,16 dla obrazu 32×32 */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
-
       .header-container {
         position: fixed;
         top: 0;
@@ -43,7 +42,8 @@
         font-size: 28px;
         letter-spacing: 2px;
       }
-
+      
+      /* ===== Sekcja Hero ===== */
       .hero {
         height: 100vh;
         display: flex;
@@ -75,7 +75,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk logowania przez EVE (widoczny domyślnie) */
+      /* Przycisk logowania przez EVE */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -91,8 +91,8 @@
       .btn-eve:hover {
         background-color: #00e6b8;
       }
-
-      /* Panel kontaktowy – pojawia się po zalogowaniu, wyśrodkowany */
+      
+      /* ===== Panel kontaktowy (po zalogowaniu) ===== */
       #loggedInPanel {
         display: none;
         margin: 20px auto;
@@ -139,13 +139,14 @@
       #loggedInPanel form input[type="submit"]:hover {
         background-color: #00e6b8;
       }
-
-      /* Sekcja Useful Links – zawsze widoczna pod panelem kontaktowym */
+      
+      /* ===== Sekcja Useful Links ===== */
       #usefulLinksContainer {
         margin: 20px auto;
         padding: 20px;
         max-width: 1200px;
         text-align: center;
+        display: block;
       }
       #usefulLinksContainer h2 {
         margin-bottom: 20px;
@@ -158,7 +159,7 @@
         justify-content: center;
         gap: 20px;
       }
-      /* RESPONSYWNE WIDEO: standard "padding hack" dla 16:9 */
+      /* Fluid Video – karty zachowujące proporcje 16:9 */
       .card {
         position: relative;
         width: 300px;
@@ -167,9 +168,8 @@
         border: 2px solid #00ffcc;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        /* Proporcja 16:9 – 56.25% z 16 / 9 = 1.777... */
-        padding-bottom: 56.25%;
-        margin: 0 auto; /* wyśrodkowanie karty */
+        padding-bottom: 56.25%; /* 16:9 proporcja */
+        margin: 0 auto;
       }
       .card iframe {
         position: absolute;
@@ -178,8 +178,8 @@
         width: 100%;
         height: 100%;
       }
-
-      /* Sekcje "O Nas" i "Kontakt" – wyrównane do środka z tekstem inspirowanym stylistyką Star Wars */
+      
+      /* ===== Sekcje "O Nas" i "Kontakt" ===== */
       #o-nas, #kontakt {
         text-align: center;
         padding: 60px 20px;
@@ -191,7 +191,8 @@
         font-size: 20px;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
       }
-      /* Animacja odsłaniania sekcji */
+      
+      /* ===== Animacja odsłaniania sekcji ===== */
       section {
         opacity: 0;
         transform: translateY(20px);
@@ -201,6 +202,7 @@
         opacity: 1;
         transform: translateY(0);
       }
+      
       .footer {
         text-align: center;
         padding: 20px;
@@ -225,8 +227,14 @@
       .admin-button:hover {
         opacity: 1;
       }
-
-      /* Responsywność */
+      
+      /* ===== Responsywność ===== */
+      @media(min-width: 769px) {
+        /* Dla desktop – domyślne ustawienie */
+        .cards-container {
+          flex-direction: row;
+        }
+      }
       @media(max-width: 768px) {
         .header-container h1 {
           font-size: 24px;
@@ -278,7 +286,6 @@
         #usefulLinksContainer h2 {
           font-size: 20px;
         }
-        /* Pozycyjnie i wielkość wideo – nic nie zmieniamy, bo czerpiemy z parent .card */
       }
     </style>
   </head>
@@ -303,7 +310,7 @@
             <i class="fab fa-youtube"></i>
           </a>
         </div>
-        <!-- Przycisk logowania przez EVE (widoczny domyślnie) -->
+        <!-- Przycisk logowania przez EVE -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
         <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
         <div id="loggedInPanel">
@@ -314,48 +321,28 @@
             <input type="submit" value="Wyślij">
           </form>
         </div>
-        <!-- Sekcja Useful Links – zawsze widoczna pod panelem kontaktowym -->
+        <!-- Sekcja Useful Links – wyświetlana zawsze pod panelem kontaktowym (na PC oraz mobile) -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
           <div class="cards-container">
-            <!-- KARTA 1 -->
             <div class="card">
-              <iframe 
-                src="https://www.youtube.com/embed/CDV92opHDWc" 
-                frameborder="0" 
-                allowfullscreen
-              ></iframe>
+              <iframe src="https://www.youtube.com/embed/CDV92opHDWc" frameborder="0" allowfullscreen></iframe>
             </div>
-            <!-- KARTA 2 -->
             <div class="card">
-              <iframe 
-                src="https://www.youtube.com/embed/BCSeISYcoyI" 
-                frameborder="0" 
-                allowfullscreen
-              ></iframe>
+              <iframe src="https://www.youtube.com/embed/BCSeISYcoyI" frameborder="0" allowfullscreen></iframe>
             </div>
-            <!-- KARTA 3 -->
             <div class="card">
-              <iframe 
-                src="https://www.youtube.com/embed/0bjTrPutt4k" 
-                frameborder="0" 
-                allowfullscreen
-              ></iframe>
+              <iframe src="https://www.youtube.com/embed/0bjTrPutt4k" frameborder="0" allowfullscreen></iframe>
             </div>
-            <!-- KARTA 4 -->
             <div class="card">
-              <iframe 
-                src="https://www.youtube.com/embed/cu5FHzfkMW8" 
-                frameborder="0" 
-                allowfullscreen
-              ></iframe>
+              <iframe src="https://www.youtube.com/embed/cu5FHzfkMW8" frameborder="0" allowfullscreen></iframe>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Sekcja "O Nas" – wyrównana do środka -->
+    <!-- Sekcja "O Nas" -->
     <section id="o-nas">
       <h2>O Nas</h2>
       <p>
@@ -365,7 +352,7 @@
       </p>
     </section>
 
-    <!-- Sekcja "Kontakt" – wyrównana do środka -->
+    <!-- Sekcja "Kontakt" -->
     <section id="kontakt">
       <h2>Kontakt</h2>
       <p>
@@ -408,11 +395,12 @@
         window.location.href = url;
       });
 
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy =======
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
         eveLoginBtn.style.display = "none";
         document.getElementById("loggedInPanel").style.display = "block";
+        document.getElementById("usefulLinksContainer").style.display = "block";
       }
 
       // ======= Obsługa formularza panelu kontaktowego =======

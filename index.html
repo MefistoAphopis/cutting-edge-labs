@@ -24,7 +24,7 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – przykładowy PNG Data URI, hotspot ustawiony na 16,16 dla obrazu 32×32 */
+        /* Niestandardowy kursor – PNG Data URI */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
       .header-container {
@@ -146,7 +146,6 @@
         padding: 20px;
         max-width: 1200px;
         text-align: center;
-        display: block;
       }
       #usefulLinksContainer h2 {
         margin-bottom: 20px;
@@ -155,20 +154,26 @@
       }
       .cards-container {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: wrap;  /* Domyślnie pozwalamy na zawijanie kart */
         justify-content: center;
         gap: 20px;
       }
-      /* Fluid Video – karty zachowujące proporcje 16:9 */
+      /* Przy szerokości >= 1200 px wszystkie karty w jednym wierszu */
+      @media (min-width: 1200px) {
+        .cards-container {
+          flex-wrap: nowrap; /* bez zawijania */
+        }
+      }
+      /* Fluid video w formacie 16:9, stała szerokość 300px na PC */
       .card {
         position: relative;
         width: 300px;
-        max-width: 100%;
+        flex: 0 0 300px;  /* stała szerokość => karty w jednej linii na szerokim ekranie */
         overflow: hidden;
         border: 2px solid #00ffcc;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        padding-bottom: 56.25%; /* 16:9 proporcja */
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
         margin: 0 auto;
       }
       .card iframe {
@@ -229,12 +234,6 @@
       }
       
       /* ===== Responsywność ===== */
-      @media(min-width: 769px) {
-        /* Dla desktop – domyślne ustawienie */
-        .cards-container {
-          flex-direction: row;
-        }
-      }
       @media(max-width: 768px) {
         .header-container h1 {
           font-size: 24px;
@@ -290,12 +289,12 @@
     </style>
   </head>
   <body>
-    <!-- Nagłówek -->
+    <!-- Pasek nagłówka -->
     <header class="header-container">
       <h1>Cutting Edge Labs</h1>
     </header>
     
-    <!-- Sekcja Hero -->
+    <!-- Sekcja Hero: Strona powitalna -->
     <div class="hero">
       <div>
         <h2>Przyszłość jest już tutaj</h2>
@@ -312,6 +311,7 @@
         </div>
         <!-- Przycisk logowania przez EVE -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
+        
         <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
@@ -321,28 +321,45 @@
             <input type="submit" value="Wyślij">
           </form>
         </div>
-        <!-- Sekcja Useful Links – wyświetlana zawsze pod panelem kontaktowym (na PC oraz mobile) -->
+        
+        <!-- Sekcja Useful Links (zawsze widoczna, layout dopasowany do szerokości ekranu) -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
           <div class="cards-container">
             <div class="card">
-              <iframe src="https://www.youtube.com/embed/CDV92opHDWc" frameborder="0" allowfullscreen></iframe>
+              <iframe 
+                src="https://www.youtube.com/embed/CDV92opHDWc" 
+                frameborder="0" 
+                allowfullscreen
+              ></iframe>
             </div>
             <div class="card">
-              <iframe src="https://www.youtube.com/embed/BCSeISYcoyI" frameborder="0" allowfullscreen></iframe>
+              <iframe 
+                src="https://www.youtube.com/embed/BCSeISYcoyI"
+                frameborder="0" 
+                allowfullscreen
+              ></iframe>
             </div>
             <div class="card">
-              <iframe src="https://www.youtube.com/embed/0bjTrPutt4k" frameborder="0" allowfullscreen></iframe>
+              <iframe 
+                src="https://www.youtube.com/embed/0bjTrPutt4k"
+                frameborder="0" 
+                allowfullscreen
+              ></iframe>
             </div>
             <div class="card">
-              <iframe src="https://www.youtube.com/embed/cu5FHzfkMW8" frameborder="0" allowfullscreen></iframe>
+              <iframe 
+                src="https://www.youtube.com/embed/cu5FHzfkMW8"
+                frameborder="0" 
+                allowfullscreen
+              ></iframe>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Sekcja "O Nas" -->
+    <!-- Sekcja "O Nas" – wyrównana do środka -->
     <section id="o-nas">
       <h2>O Nas</h2>
       <p>
@@ -352,7 +369,7 @@
       </p>
     </section>
 
-    <!-- Sekcja "Kontakt" -->
+    <!-- Sekcja "Kontakt" – wyrównana do środka -->
     <section id="kontakt">
       <h2>Kontakt</h2>
       <p>
@@ -395,12 +412,13 @@
         window.location.href = url;
       });
 
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
+        // Ukrywamy przycisk logowania
         eveLoginBtn.style.display = "none";
+        // Pokazujemy panel kontaktowy
         document.getElementById("loggedInPanel").style.display = "block";
-        document.getElementById("usefulLinksContainer").style.display = "block";
       }
 
       // ======= Obsługa formularza panelu kontaktowego =======

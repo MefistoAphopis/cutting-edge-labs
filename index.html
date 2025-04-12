@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Import czcionki Orbitron dla tytułów -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto użytej w panelu i przyciskach -->
+    <!-- Import czcionki Roboto, użytej w panelu i przyciskach -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,7 +24,7 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – przykładowy PNG osadzony jako Data URI (32×32, hotspot 16,16) */
+        /* Niestandardowy kursor – przykładowy PNG Data URI (32×32, hotspot: 16,16) */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
       .header-container {
@@ -75,7 +75,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk logowania przez EVE */
+      /* ===== Przycisk logowania przez EVE ===== */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -146,29 +146,26 @@
         padding: 20px;
         max-width: 1200px;
         text-align: center;
-        /* Ustawiamy, aby karty zawsze były w jednej linii z poziomym przewijaniem */
-        overflow-x: auto;
+        display: block;
       }
       #usefulLinksContainer h2 {
         margin-bottom: 20px;
         font-family: 'Roboto', sans-serif;
         font-size: 28px;
       }
+      /* Używamy CSS Grid by karty automatycznie układały się w jeden rząd, jeśli to możliwe */
       .cards-container {
-        display: flex;
-        flex-wrap: nowrap; /* wszystkie karty w jednym rzędzie */
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
       }
-      /* Karty z filmami: domyślnie stałe wymiary 300x300 (kwadrat) */
       .card {
-        position: relative;
-        flex: 0 0 300px;  /* stała szerokość: 300px */
-        height: 300px;    /* stała wysokość: 300px */
         border: 2px solid #00ffcc;
         border-radius: 10px;
-        overflow: hidden;
         box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        overflow: hidden;
+        /* Dla desktopu ustalamy stałą wysokość, by karty nie były zbyt wysokie */
+        height: 168px; /* przy szerokości min. 250px (16:9) */
       }
       .card iframe {
         width: 100%;
@@ -246,6 +243,7 @@
           padding: 20px;
         }
         .cards-container {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           gap: 15px;
         }
         #o-nas p, #kontakt p {
@@ -313,7 +311,7 @@
           </form>
         </div>
         
-        <!-- Sekcja Useful Links – zawsze widoczna pod panelem kontaktowym -->
+        <!-- Sekcja Useful Links – wyświetlana zawsze pod panelem kontaktowym -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
           <div class="cards-container">
@@ -387,7 +385,7 @@
         window.location.href = url;
       });
 
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy i Useful Links =======
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
         eveLoginBtn.style.display = "none";
@@ -406,27 +404,3 @@
               <i class="fab fa-discord" style="color: #7289da; font-size: 32px;"></i>
             </a>
           </p>
-        `;
-      });
-
-      // ======= Animacja odsłaniania sekcji =======
-      const sections = document.querySelectorAll("section");
-      const observerOptions = { threshold: 0.2 };
-      const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-      sections.forEach(section => sectionObserver.observe(section));
-
-      // ======= Panel Admina (opcjonalnie) =======
-      const adminBtn = document.getElementById("adminBtn");
-      adminBtn.addEventListener("click", () => {
-        alert("Tutaj może być logika panelu admina");
-      });
-    </script>
-  </body>
-</html>

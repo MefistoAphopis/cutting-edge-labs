@@ -24,7 +24,7 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – PNG Data URI */
+        /* Niestandardowy kursor – przykładowy PNG Data URI, hotspot: (16,16) dla obrazu 32×32 */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
       .header-container {
@@ -75,7 +75,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* Przycisk logowania przez EVE */
+      /* ===== Przycisk logowania przez EVE ===== */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -154,26 +154,20 @@
       }
       .cards-container {
         display: flex;
-        flex-wrap: wrap;  /* Domyślnie pozwalamy na zawijanie kart */
+        flex-wrap: wrap;
         justify-content: center;
         gap: 20px;
       }
-      /* Przy szerokości >= 1200 px wszystkie karty w jednym wierszu */
-      @media (min-width: 1200px) {
-        .cards-container {
-          flex-wrap: nowrap; /* bez zawijania */
-        }
-      }
-      /* Fluid video w formacie 16:9, stała szerokość 300px na PC */
+      /* Domyślnie karty zachowują proporcje 16:9 (fluid video) */
       .card {
         position: relative;
         width: 300px;
-        flex: 0 0 300px;  /* stała szerokość => karty w jednej linii na szerokim ekranie */
+        max-width: 100%;
         overflow: hidden;
         border: 2px solid #00ffcc;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        padding-bottom: 56.25%; /* 16:9 proporcja */
         margin: 0 auto;
       }
       .card iframe {
@@ -182,6 +176,20 @@
         left: 0;
         width: 100%;
         height: 100%;
+        border: none;
+      }
+      /* Na szerokich ekranach (desktop) zmieniamy proporcje na kwadratowe */
+      @media (min-width: 1200px) {
+        .card {
+          padding-bottom: 0; /* usuwamy fluid hack */
+          height: 300px;      /* ustalamy stałą wysokość dla kwadratowego kształtu */
+          aspect-ratio: 1 / 1;
+        }
+        .card iframe {
+          position: static;
+          width: 100%;
+          height: 100%;
+        }
       }
       
       /* ===== Sekcje "O Nas" i "Kontakt" ===== */
@@ -289,12 +297,12 @@
     </style>
   </head>
   <body>
-    <!-- Pasek nagłówka -->
+    <!-- Nagłówek -->
     <header class="header-container">
       <h1>Cutting Edge Labs</h1>
     </header>
     
-    <!-- Sekcja Hero: Strona powitalna -->
+    <!-- Sekcja Hero -->
     <div class="hero">
       <div>
         <h2>Przyszłość jest już tutaj</h2>
@@ -309,9 +317,8 @@
             <i class="fab fa-youtube"></i>
           </a>
         </div>
-        <!-- Przycisk logowania przez EVE -->
+        <!-- Przycisk logowania przez EVE (widoczny domyślnie) -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
-        
         <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
@@ -321,38 +328,21 @@
             <input type="submit" value="Wyślij">
           </form>
         </div>
-        
-        <!-- Sekcja Useful Links (zawsze widoczna, layout dopasowany do szerokości ekranu) -->
+        <!-- Sekcja Useful Links – zawsze widoczna pod panelem kontaktowym -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
           <div class="cards-container">
             <div class="card">
-              <iframe 
-                src="https://www.youtube.com/embed/CDV92opHDWc" 
-                frameborder="0" 
-                allowfullscreen
-              ></iframe>
+              <iframe src="https://www.youtube.com/embed/CDV92opHDWc" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="card">
-              <iframe 
-                src="https://www.youtube.com/embed/BCSeISYcoyI"
-                frameborder="0" 
-                allowfullscreen
-              ></iframe>
+              <iframe src="https://www.youtube.com/embed/BCSeISYcoyI" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="card">
-              <iframe 
-                src="https://www.youtube.com/embed/0bjTrPutt4k"
-                frameborder="0" 
-                allowfullscreen
-              ></iframe>
+              <iframe src="https://www.youtube.com/embed/0bjTrPutt4k" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="card">
-              <iframe 
-                src="https://www.youtube.com/embed/cu5FHzfkMW8"
-                frameborder="0" 
-                allowfullscreen
-              ></iframe>
+              <iframe src="https://www.youtube.com/embed/cu5FHzfkMW8" frameborder="0" allowfullscreen></iframe>
             </div>
           </div>
         </div>
@@ -412,13 +402,12 @@
         window.location.href = url;
       });
 
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy =======
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
-        // Ukrywamy przycisk logowania
         eveLoginBtn.style.display = "none";
-        // Pokazujemy panel kontaktowy
         document.getElementById("loggedInPanel").style.display = "block";
+        document.getElementById("usefulLinksContainer").style.display = "block";
       }
 
       // ======= Obsługa formularza panelu kontaktowego =======

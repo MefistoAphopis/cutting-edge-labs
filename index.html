@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Import czcionki Orbitron dla tytułów -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Import czcionki Roboto, użytej w panelu i przyciskach -->
+    <!-- Import czcionki Roboto użytej w panelu i przyciskach -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Import Font Awesome dla ikonek Discorda i YouTube -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,7 +24,7 @@
         line-height: 1.6;
         font-size: 16px;
         overflow-x: hidden;
-        /* Niestandardowy kursor – przykładowy PNG Data URI, hotspot: (16,16) dla obrazu 32×32 */
+        /* Niestandardowy kursor – przykładowy PNG osadzony jako Data URI (32×32, hotspot 16,16) */
         cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAAC5E+0/AAAAMFBMVEUAAAD///////////////////////////////////////////////////////////////////9tjVtzAAAADXRSTlMAQIDBAUGBwgJCxs8yA8AAABbSURBVHgBY2AgDGBgYmBiZGBk4OBigABBgYGODAwMjI4ODhDwE6TMWLCwsLDw+RgATZMDUoWgDkmhQGYEoWBpBRtBSwUisF5EcGAcYVKQ90fKcAAAABJRU5ErkJggg==") 16 16, auto;
       }
       .header-container {
@@ -75,7 +75,7 @@
       .hero-icon:hover {
         color: #00ffcc;
       }
-      /* ===== Przycisk logowania przez EVE ===== */
+      /* Przycisk logowania przez EVE */
       .btn-eve {
         margin-top: 20px;
         padding: 12px 24px;
@@ -146,6 +146,8 @@
         padding: 20px;
         max-width: 1200px;
         text-align: center;
+        /* Ustawiamy, aby karty zawsze były w jednej linii z poziomym przewijaniem */
+        overflow-x: auto;
       }
       #usefulLinksContainer h2 {
         margin-bottom: 20px;
@@ -154,42 +156,24 @@
       }
       .cards-container {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap; /* wszystkie karty w jednym rzędzie */
         justify-content: center;
         gap: 20px;
       }
-      /* Domyślnie karty zachowują proporcje 16:9 (fluid video) */
+      /* Karty z filmami: domyślnie stałe wymiary 300x300 (kwadrat) */
       .card {
         position: relative;
-        width: 300px;
-        max-width: 100%;
-        overflow: hidden;
+        flex: 0 0 300px;  /* stała szerokość: 300px */
+        height: 300px;    /* stała wysokość: 300px */
         border: 2px solid #00ffcc;
         border-radius: 10px;
+        overflow: hidden;
         box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        padding-bottom: 56.25%; /* 16:9 proporcja */
-        margin: 0 auto;
       }
       .card iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         border: none;
-      }
-      /* Na szerokich ekranach (desktop) zmieniamy proporcje na kwadratowe */
-      @media (min-width: 1200px) {
-        .card {
-          padding-bottom: 0; /* usuwamy fluid hack */
-          height: 300px;      /* ustalamy stałą wysokość dla kwadratowego kształtu */
-          aspect-ratio: 1 / 1;
-        }
-        .card iframe {
-          position: static;
-          width: 100%;
-          height: 100%;
-        }
       }
       
       /* ===== Sekcje "O Nas" i "Kontakt" ===== */
@@ -262,7 +246,6 @@
           padding: 20px;
         }
         .cards-container {
-          flex-direction: column;
           gap: 15px;
         }
         #o-nas p, #kontakt p {
@@ -319,6 +302,7 @@
         </div>
         <!-- Przycisk logowania przez EVE (widoczny domyślnie) -->
         <button class="btn-eve" id="eveLoginBtn">Zaloguj się przez EVE</button>
+        
         <!-- Panel kontaktowy pojawiający się po zalogowaniu -->
         <div id="loggedInPanel">
           <h3>Uzupełnij dane kontaktowe</h3>
@@ -328,6 +312,7 @@
             <input type="submit" value="Wyślij">
           </form>
         </div>
+        
         <!-- Sekcja Useful Links – zawsze widoczna pod panelem kontaktowym -->
         <div id="usefulLinksContainer">
           <h2>Useful Links</h2>
@@ -402,7 +387,7 @@
         window.location.href = url;
       });
 
-      // ======= Po zalogowaniu – Pokaż panel kontaktowy oraz Useful Links =======
+      // ======= Po zalogowaniu – Pokaż panel kontaktowy i Useful Links =======
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("code")) {
         eveLoginBtn.style.display = "none";
